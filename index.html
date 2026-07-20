@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bifröst Network — El puente hacia el mejor internet de Colombia</title>
+<meta name="description" content="Internet de fibra óptica GPON simétrica en Medellín, Colombia. Planes Aurora, Rayo, Prisma y Cosmos. Bifröst Network S.A.S.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+
+<!-- Hoja de estilos propias, una por sección/responsabilidad -->
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/navigation.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/plans.css">
+<link rel="stylesheet" href="css/coverage.css">
+<link rel="stylesheet" href="css/about.css">
+<link rel="stylesheet" href="css/testimonials.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+
+<div class="beam-progress" id="beamProgress"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <!-- Logo horizontal (isotipo + wordmark + "Network S.A.S.") — assets/svg/logo_bifrost_w.svg — tamaño nav: 36px de alto (ancho proporcional ~110px, ratio nativo 872:285) -->
+      <img class="mark" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#planes">Planes</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#testimonios">Clientes</a>
+      <a href="#contacto" class="nav-cta">Contratar</a>
+    </div>
+
+    <button class="nav-burger" id="burger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <!-- Isotipo animado (versión blanca) — assets/svg/isotipo_w_animado.svg (animación autocontenida en el propio archivo) — tamaño hero: 128x128px -->
+  <img class="hero-mark" src="assets/svg/isotipo_w_animado.svg" width="128" height="128" alt="Bifröst Network">
+
+  <h1>
+    <span class="line"><span>El puente hacia el</span></span>
+    <span class="line"><span><em>mejor internet</em> de Colombia</span></span>
+  </h1>
+
+  <p>Fibra óptica GPON simétrica, directa a tu hogar o negocio en Medellín. Sin promesas infladas — la misma velocidad para subir y bajar.</p>
+
+  <div class="hero-ctas">
+    <a href="#planes" class="btn-primary">Ver planes</a>
+    <a href="#cobertura" class="btn-ghost">Consultar cobertura</a>
+  </div>
+
+  <!-- Haz Bifröst (elemento firma, arco degradado que se dibuja al cargar) — inline
+       (fuente de referencia: assets/svg/haz-bifrost.svg) — ancho: min(720px, 90vw) -->
+  <svg class="hero-beam" viewBox="0 0 720 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="720" height="90">
+    <defs>
+      <linearGradient id="bfBeamGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#0011FF"/>
+        <stop offset="35%" stop-color="#8b3fff"/>
+        <stop offset="65%" stop-color="#ff3f8b"/>
+        <stop offset="100%" stop-color="#FE5000"/>
+      </linearGradient>
+    </defs>
+    <path d="M4 70 C 180 -10, 540 -10, 716 70" stroke="url(#bfBeamGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="stick"></div>
+  </div>
+</section>
+
+<!-- ============ PLANES ============ -->
+<section class="light section-pad" id="planes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Planes</div>
+      <h2>Cuatro velocidades,<br>un mismo puente.</h2>
+      <p>Cada plan avanza un paso más en el espectro Bifröst — de la primera luz al cosmos entero. Todos con fibra 100% simétrica.</p>
+    </div>
+
+    <div class="plans-grid reveal-stagger">
+      <div class="plan-card" style="--stop:#3355FF">
+        <div class="kicker">01 · AURORA</div>
+        <h3>Plan Aurora</h3>
+        <p class="concept">La primera luz en el cielo. Ideal para el hogar estándar: redes sociales, streaming HD y teletrabajo básico.</p>
+        <div class="speed"><b>300</b> / 300 Mbps ↓↑ simétricos</div>
+        <div class="price"><b>$68.000</b><span>/mes</span></div>
+        <a href="#contacto" class="cta">Contratar Aurora</a>
+      </div>
+
+      <div class="plan-card" style="--stop:#0011FF">
+        <div class="kicker">02 · RAYO</div>
+        <h3>Plan Rayo</h3>
+        <p class="concept">Velocidad directa, fuerza e impacto instantáneo. Para hogares conectados o pequeños comercios con 4K simultáneo.</p>
+        <div class="speed"><b>400</b> / 400 Mbps ↓↑ simétricos</div>
+        <div class="price"><b>$75.000</b><span>/mes</span></div>
+        <a href="#contacto" class="cta">Contratar Rayo</a>
+      </div>
+
+      <div class="plan-card prisma" style="--stop:#00b4ff">
+        <div class="kicker">03 · PRISMA</div>
+        <h3>Plan Prisma</h3>
+        <p class="concept">El cristal que divide la luz en todos sus colores. Premium para gamers o comercios con alto flujo de datos.</p>
+        <div class="speed"><b>500</b> / 500 Mbps ↓↑ simétricos</div>
+        <div class="price"><b>$85.000</b><span>/mes</span></div>
+        <a href="#contacto" class="cta">Contratar Prisma</a>
+      </div>
+
+      <div class="plan-card" style="--stop:#FE5000">
+        <div class="kicker">04 · COSMOS</div>
+        <h3>Plan Cosmos</h3>
+        <p class="concept">El todo, la inmensidad conectada sin límites. Corporativo, para usuarios ultra-exigentes y descargas masivas.</p>
+        <div class="speed"><b>900</b> / 900 Mbps ↓↑ simétricos</div>
+        <div class="price"><b>$99.000</b><span>/mes</span></div>
+        <a href="#contacto" class="cta">Contratar Cosmos</a>
+      </div>
+    </div>
+
+    <div class="tv-banner reveal">
+      <div class="left">
+        <!-- Isotipo (versión blanca, estático) — assets/svg/isotipo_w.svg — tamaño: 56x56px -->
+        <img class="tvmark" src="assets/svg/isotipo_w.svg" width="56" height="56" alt="Bifröst TV">
+        <div>
+          <h4>Añade Bifröst TV a cualquier plan</h4>
+          <p>Máximo 2 televisores conectados simultáneamente</p>
+        </div>
+      </div>
+      <div class="price"><b>+ $19.900</b><span>adicionales /mes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COBERTURA ============ -->
+<section class="coverage section-pad" id="cobertura">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Cobertura</div>
+      <h2 style="color:#fff">Estamos tendiendo<br>el puente.</h2>
+      <p style="color:var(--mist)">Red GPON activa y en expansión. Escribe tu dirección y te confirmamos disponibilidad al instante.</p>
+    </div>
+
+    <div class="coverage-grid reveal">
+      <div class="coverage-info">
+        <h3>Medellín, Colombia</h3>
+        <p>Zona inicial de despliegue de red. Estamos ampliando barrio a barrio — el mapa muestra los polígonos reales de cobertura.</p>
+        <div class="coverage-stats">
+          <div class="stat"><b>1</b><span>Barrio con red activa</span></div>
+          <div class="stat"><b>19</b><span>Barrios próximos a activarse</span></div>
+        </div>
+        <div class="map-legend">
+          <div class="legend-item"><span class="dot active"></span>Cobertura activa</div>
+          <div class="legend-item"><span class="dot planned"></span>Próximamente</div>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOSOTROS ============ -->
+<section class="about section-pad" id="nosotros">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Nosotros</div>
+      <h2>Por qué elegir<br>Bifröst.</h2>
+    </div>
+
+    <div class="about-layout">
+      <div class="about-sticky reveal">
+        <div class="num">Bifröst Network S.A.S.</div>
+        <h3>Un ISP construido sobre fibra, no sobre promesas.</h3>
+        <p>Cada decisión técnica que tomamos —de la red GPON al soporte— existe para que tu conexión sea tan confiable como la luz que cruza un puente.</p>
+      </div>
+
+      <div>
+        <div class="about-feature reveal">
+          <!-- Ícono fibra GPON — assets/svg/icono-fibra.svg — tamaño: 24x24px dentro de caja 52x52px -->
+          <div class="icon"><img src="assets/svg/icono-fibra.svg" width="24" height="24" alt=""></div>
+          <div>
+            <h4>Fibra óptica GPON</h4>
+            <p>Infraestructura de última generación, directa hasta tu domicilio (FTTH), sin cobre en el trayecto final.</p>
+          </div>
+        </div>
+
+        <div class="about-feature reveal">
+          <!-- Ícono velocidad simétrica — assets/svg/icono-simetria.svg — tamaño: 24x24px dentro de caja 52x52px -->
+          <div class="icon"><img src="assets/svg/icono-simetria.svg" width="24" height="24" alt=""></div>
+          <div>
+            <h4>Velocidad simétrica real</h4>
+            <p>La misma velocidad de subida que de bajada en todos los planes — ideal para trabajo remoto, streaming y videollamadas.</p>
+          </div>
+        </div>
+
+        <div class="about-feature reveal">
+          <!-- Ícono soporte — assets/svg/icono-soporte.svg — tamaño: 24x24px dentro de caja 52x52px -->
+          <div class="icon"><img src="assets/svg/icono-soporte.svg" width="24" height="24" alt=""></div>
+          <div>
+            <h4>Soporte que responde</h4>
+            <p>Canal de PQR directo y equipo técnico local en Medellín — sin líneas de espera infinitas.</p>
+          </div>
+        </div>
+
+        <div class="about-feature reveal">
+          <!-- Ícono cobertura — assets/svg/icono-cobertura.svg — tamaño: 24x24px dentro de caja 52x52px -->
+          <div class="icon"><img src="assets/svg/icono-cobertura.svg" width="24" height="24" alt=""></div>
+          <div>
+            <h4>Cobertura en expansión</h4>
+            <p>Red creciendo activamente en Medellín, con planes de extensión metropolitana en los próximos meses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="testi section-pad" id="testimonios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--orange)">Clientes</div>
+      <h2 style="color:#fff">Lo que dicen<br>al otro lado del puente.</h2>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="testi-track reveal">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Cambié a Plan Prisma para el negocio y desde entonces el datáfono nunca más se ha caído en horas pico."</p>
+        <div class="who"><div class="avatar"></div><div><b>Laura M.</b><span>Plan Prisma · Comercio</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"La simetría real se nota en las videollamadas de trabajo. Con mi anterior proveedor la subida siempre era el cuello de botella."</p>
+        <div class="who"><div class="avatar"></div><div><b>Andrés G.</b><span>Plan Rayo · Teletrabajo</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Instalaron en menos de 48 horas y el soporte responde de verdad, no es un bot repitiendo lo mismo."</p>
+        <div class="who"><div class="avatar"></div><div><b>Camila R.</b><span>Plan Aurora · Hogar</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p>"Con Plan Cosmos corremos backups pesados en la madrugada sin que nadie note nada al día siguiente."</p>
+        <div class="who"><div class="avatar"></div><div><b>Julián P.</b><span>Plan Cosmos · Empresa</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section class="contact section-pad" id="contacto">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Contacto</div>
+      <h2>Cruza el puente.</h2>
+      <p>Cuéntanos qué necesitas y te contactamos para confirmar disponibilidad e instalación.</p>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div class="contact-form">
+        <form id="pqrForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Ej: Laura Martínez" required>
+            </div>
+            <div class="field">
+              <label for="documento">Cédula / NIT</label>
+              <input type="text" id="documento" name="documento" placeholder="Ej: 1.234.567.890" required>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="Ej: 300 765 4321" required>
+            </div>
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="tipo">Tipo de solicitud</label>
+            <select id="tipo" name="tipo" required>
+              <option value="">Selecciona una opción</option>
+              <option value="nuevo">Nuevo servicio</option>
+              <option value="soporte">Soporte técnico</option>
+              <option value="pqr">PQR (Petición, Queja o Reclamo)</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu dirección y qué plan te interesa..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Enviar solicitud →</button>
+          <p class="form-note">Al enviar aceptas ser contactado por Bifröst Network S.A.S. para dar trámite a tu solicitud.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="check">✓</div>
+          <h4>Solicitud recibida</h4>
+          <p>Este es un formulario de demostración. Conéctalo a tu endpoint para procesar solicitudes reales.</p>
+        </div>
+      </div>
+
+      <div class="contact-side">
+        <div class="side-card accent">
+          <h4>WhatsApp / Línea directa</h4>
+          <div class="val">+57 300 765 4321</div>
+        </div>
+        <div class="side-card">
+          <h4>Correo</h4>
+          <div class="val">hola@bifrostinternet.com</div>
+        </div>
+        <div class="side-card accent2">
+          <h4>Zona de cobertura</h4>
+          <div class="val">Medellín, Colombia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="brand">
+          <!-- Logo horizontal (isotipo + wordmark + "Network S.A.S.") — assets/svg/logo_bifrost_w.svg — tamaño footer: 80px de alto (ancho proporcional, ver css/footer.css) -->
+          <img class="mark mark--footer" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+        </a>
+        <p>El puente de fibra óptica que conecta a Medellín con el mejor internet de Colombia.</p>
+      </div>
+
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Navegación</h5>
+          <a href="#planes">Planes</a>
+          <a href="#cobertura">Cobertura</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#testimonios">Clientes</a>
+        </div>
+        <div class="foot-col">
+          <h5>Soporte</h5>
+          <a href="#contacto">PQR</a>
+          <a href="#contacto">Soporte técnico</a>
+          <a href="#contacto">Nuevo servicio</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contacto</h5>
+          <a href="tel:+573007654321">+57 300 765 4321</a>
+          <a href="mailto:hola@bifrostinternet.com">hola@bifrostinternet.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-stripe"><span></span><span></span></div>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© 2026 Bifröst Network S.A.S. Todos los derechos reservados.</span>
+      <span>bifrostinternet.com</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Leaflet (mapa) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+
+<!-- Datos de cobertura: deben cargarse ANTES que map.js -->
+<script src="js/coverage-data.js"></script>
+<script src="js/map.js"></script>
+<script src="js/main.js"></script>
+<script src="js/contact-form.js"></script>
+</body>
+</html>

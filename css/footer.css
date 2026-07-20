@@ -1,0 +1,21 @@
+/* Bifröst Network — Footer
+   Importado por index.html vía <link> */
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); border-top:1px solid var(--line); padding:64px 0 0;}
+  .foot-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:56px;}
+  .foot-brand .brand{margin-bottom:14px;}
+  /* Logo horizontal en footer — assets/svg/logo_bifrost_w.svg — 80px de alto, ancho proporcional (~245px, ratio nativo 872:285) */
+  .foot-brand .brand .mark--footer{height:80px; width:auto;}
+  .foot-brand p{color:var(--mist-dim); font-size:13.5px; max-width:280px; line-height:1.6;}
+  .foot-cols{display:flex; gap:64px; flex-wrap:wrap;}
+  .foot-col h5{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist-dim); margin-bottom:16px;}
+  .foot-col a{display:block; font-size:14.5px; color:var(--mist); margin-bottom:11px; transition:color .25s;}
+  .foot-col a:hover{color:var(--white);}
+  .foot-stripe{height:8px; display:flex;}
+  .foot-stripe span{flex:1; background:var(--blue);}
+  .foot-stripe span:nth-child(2){background:var(--orange);}
+  .foot-bottom{padding:20px 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-size:12.5px; color:var(--mist-dim); border-top:1px solid var(--line); margin-top:0;}
+
+  .leaflet-popup-content{font-family:'General Sans',sans-serif; font-size:13px;}

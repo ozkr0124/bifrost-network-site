@@ -1,0 +1,21 @@
+/* Bifröst Network — Sección Nosotros (layout sticky)
+   Importado por index.html vía <link> */
+
+  /* ---------- Nosotros (sticky) ---------- */
+  .about{background:var(--paper); color:var(--ink);}
+  .about-layout{margin-top:60px; display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px;}
+  @media (max-width:900px){.about-layout{grid-template-columns:1fr; gap:30px;}}
+  .about-sticky{position:sticky; top:120px; align-self:start; height:fit-content;}
+  @media (max-width:900px){.about-sticky{position:static;}}
+  .about-sticky .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--blue); font-weight:600;}
+  .about-sticky h3{font-size:clamp(26px,3.4vw,38px); font-weight:800; letter-spacing:-0.02em; margin-top:14px; line-height:1.15; transition:opacity .4s;}
+  .about-sticky p{margin-top:16px; color:#57575f; font-size:16px; line-height:1.6; max-width:420px;}
+
+  .about-feature{padding:44px 0; border-top:1px solid var(--line-dark); display:flex; gap:24px; align-items:flex-start;}
+  .about-feature:last-child{border-bottom:1px solid var(--line-dark);}
+  .about-feature .icon{width:52px; height:52px; border-radius:14px; background:var(--ink); color:var(--white);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  /* Íconos importados de assets/svg/icono-*.svg */
+  .about-feature .icon img{width:24px; height:24px;}
+  .about-feature h4{font-size:19px; font-weight:700; letter-spacing:-0.01em;}
+  .about-feature p{margin-top:8px; font-size:14.5px; color:#6a6a72; line-height:1.55; max-width:480px;}

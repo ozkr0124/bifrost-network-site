@@ -1,0 +1,70 @@
+/* Bifröst Network — Sección Hero
+   Importado por index.html vía <link> */
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:150px 24px 90px;
+    background:
+      radial-gradient(ellipse 70% 50% at 30% 15%, rgba(0,17,255,0.28), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 75% 85%, rgba(254,80,0,0.20), transparent 60%),
+      var(--ink);
+    overflow:hidden;
+  }
+  /* Isotipo animado — importado de assets/svg/isotipo-animado.svg (el pulso de los puntos vive dentro del propio SVG) */
+  .hero-mark{
+    width:128px; height:128px; margin-bottom:34px;
+    opacity:0; transform:scale(.6);
+    animation:markIn 1s var(--ease) .15s forwards;
+  }
+  @keyframes markIn{to{opacity:1; transform:scale(1);}}
+
+  .hero h1{
+    font-size:clamp(38px, 6.6vw, 84px);
+    font-weight:800; letter-spacing:-0.03em; line-height:1.04;
+    max-width:920px;
+  }
+  .hero h1 .line{display:block; overflow:hidden;}
+  .hero h1 .line span{display:inline-block; opacity:0; transform:translateY(110%);
+    animation:lineUp .9s var(--ease-soft) forwards;}
+  .hero h1 .line:nth-child(1) span{animation-delay:.35s;}
+  .hero h1 .line:nth-child(2) span{animation-delay:.48s;}
+  @keyframes lineUp{to{opacity:1; transform:translateY(0);}}
+  .hero h1 em{font-style:normal; background:var(--grad-beam); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  .hero p{
+    margin-top:22px; font-size:clamp(15px,1.9vw,19px); color:var(--mist);
+    max-width:560px; font-weight:500;
+    opacity:0; animation:fadeUp .9s var(--ease-soft) .75s forwards;
+  }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+
+  .hero-ctas{display:flex; gap:14px; margin-top:38px; flex-wrap:wrap; justify-content:center;
+    opacity:0; animation:fadeUp .9s var(--ease-soft) .9s forwards;}
+  .btn-primary, .btn-ghost{
+    padding:14px 28px; border-radius:100px; font-size:15px; font-weight:600;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s, border-color .3s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--white); color:var(--ink);}
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(255,255,255,0.14);}
+  .btn-ghost{border:1px solid var(--line); color:var(--white);}
+  .btn-ghost:hover{border-color:rgba(255,255,255,0.4); transform:translateY(-3px);}
+
+  .hero-beam{width:min(720px, 90vw); margin-top:64px;
+    opacity:0; animation:fadeUp 1s var(--ease-soft) 1.05s forwards;}
+  .hero-beam path{
+    stroke-dasharray:900; stroke-dashoffset:900;
+    animation:draw 2.2s var(--ease-soft) 1.2s forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+
+  .scroll-cue{position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    opacity:0; animation:fadeUp .8s ease 1.6s forwards;}
+  .scroll-cue span{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--mist-dim);}
+  .scroll-cue .stick{width:1px; height:30px; background:var(--line); position:relative; overflow:hidden;}
+  .scroll-cue .stick::after{content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background:var(--white); animation:cueMove 1.8s ease-in-out infinite;}
+  @keyframes cueMove{50%{top:100%;}100%{top:100%;}}

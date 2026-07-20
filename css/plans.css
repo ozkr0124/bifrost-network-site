@@ -1,0 +1,48 @@
+/* Bifröst Network — Sección Planes + banner Bifröst TV
+   Importado por index.html vía <link> */
+
+  /* ---------- Planes ---------- */
+  .plans-grid{margin-top:64px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:1080px){.plans-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.plans-grid{grid-template-columns:1fr;}}
+
+  .plan-card{
+    background:var(--white); border-radius:22px; padding:32px 26px;
+    border:1px solid var(--line-dark);
+    display:flex; flex-direction:column; gap:18px;
+    position:relative; overflow:hidden;
+    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .plan-card::before{content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--stop);}
+  .plan-card:hover{transform:translateY(-8px); box-shadow:0 24px 48px rgba(0,0,0,0.1);}
+  .plan-card .kicker{font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:500; color:var(--mist-dim); letter-spacing:.08em;}
+  .plan-card h3{font-size:24px; font-weight:800; letter-spacing:-0.02em;}
+  .plan-card .concept{font-size:13.5px; font-style:italic; color:#6a6a72; line-height:1.5; min-height:52px;}
+  .plan-card .speed{font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--ink);
+    display:flex; align-items:center; gap:8px; padding-top:6px; border-top:1px solid var(--line-dark);}
+  .plan-card .speed b{font-size:30px; font-weight:600; color:var(--stop);}
+  .plan-card .price{margin-top:auto; display:flex; align-items:baseline; gap:6px;}
+  .plan-card .price b{font-size:30px; font-weight:800;}
+  .plan-card .price span{font-size:12.5px; color:#8a8a92;}
+  .plan-card .cta{margin-top:8px; padding:12px; border-radius:12px; background:var(--ink); color:var(--white);
+    font-size:14px; font-weight:600; text-align:center; transition:background .3s, transform .3s;}
+  .plan-card .cta:hover{background:var(--stop); transform:scale(1.02);}
+  .plan-card.prisma::before{background:linear-gradient(90deg,#0011FF,#00b4ff,#4dff9e,#ffe14d,var(--orange));}
+
+  .tv-banner{
+    margin-top:26px; border-radius:22px; padding:30px 34px;
+    background:var(--ink); color:var(--white);
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    overflow:hidden; position:relative;
+  }
+  .tv-banner::after{content:''; position:absolute; inset:0; opacity:.5;
+    background:radial-gradient(circle at 85% 30%, rgba(254,80,0,0.35), transparent 55%),
+               radial-gradient(circle at 15% 80%, rgba(0,17,255,0.35), transparent 55%);}
+  .tv-banner .left{position:relative; z-index:1; display:flex; align-items:center; gap:16px;}
+  /* Ícono TV — importado de assets/svg/icono-tv.svg */
+  .tv-banner .tvmark{width:56px; height:56px; flex-shrink:0;}
+  .tv-banner h4{font-size:19px; font-weight:700;}
+  .tv-banner p{font-size:14px; color:var(--mist); margin-top:3px;}
+  .tv-banner .price{position:relative; z-index:1; text-align:right; font-family:'IBM Plex Mono',monospace;}
+  .tv-banner .price b{font-size:26px; font-weight:600; color:var(--white);}
+  .tv-banner .price span{display:block; font-size:11.5px; color:var(--mist-dim); margin-top:2px;}

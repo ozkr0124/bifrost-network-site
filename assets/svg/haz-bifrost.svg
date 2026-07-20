@@ -1,0 +1,29 @@
+<!--
+  Bifröst Network — Haz Bifröst (elemento firma del Hero)
+  Uso: sección Hero, debajo del headline. Ancho recomendado: min(720px, 90vw).
+  La animación de "dibujado" (stroke-dashoffset) va incluida en el propio SVG
+  para que siga funcionando cargado como <img src="assets/svg/haz-bifrost.svg">.
+-->
+<svg viewBox="0 0 720 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bf-beam-path {
+      stroke-dasharray: 900;
+      stroke-dashoffset: 900;
+      animation: bf-draw 2.2s cubic-bezier(.22,.61,.36,1) 0.3s forwards;
+    }
+    @keyframes bf-draw { to { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: reduce) {
+      .bf-beam-path { animation: none; stroke-dashoffset: 0; }
+    }
+  </style>
+  <defs>
+    <linearGradient id="bfBeamGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0011FF"/>
+      <stop offset="35%" stop-color="#8b3fff"/>
+      <stop offset="65%" stop-color="#ff3f8b"/>
+      <stop offset="100%" stop-color="#FE5000"/>
+    </linearGradient>
+  </defs>
+  <path class="bf-beam-path" d="M4 70 C 180 -10, 540 -10, 716 70"
+    stroke="url(#bfBeamGrad)" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,40 @@
+/* Bifröst Network — Sección Contacto / formulario PQR
+   Importado por index.html vía <link> */
+
+  /* ---------- Contacto ---------- */
+  .contact{background:var(--paper); color:var(--ink);}
+  .contact-grid{margin-top:56px; display:grid; grid-template-columns:1.15fr 0.85fr; gap:20px;}
+  @media (max-width:900px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-form{background:var(--white); border-radius:24px; padding:40px; border:1px solid var(--line-dark);}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){.field-row{grid-template-columns:1fr;}}
+  .field{margin-bottom:18px; position:relative;}
+  .field label{display:block; font-size:12.5px; font-weight:600; color:#57575f; margin-bottom:7px; letter-spacing:.01em;}
+  .field input, .field select, .field textarea{
+    width:100%; padding:13px 15px; border-radius:11px; border:1px solid #dcdce0;
+    font-family:inherit; font-size:14.5px; background:#fbfbfa; color:var(--ink);
+    transition:border-color .25s, box-shadow .25s; outline:none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color:var(--blue); box-shadow:0 0 0 4px rgba(0,17,255,0.1); background:var(--white);
+  }
+  .field textarea{resize:vertical; min-height:100px;}
+  .form-submit{width:100%; padding:15px; border-radius:12px; background:var(--ink); color:var(--white);
+    font-size:15px; font-weight:600; margin-top:6px; transition:background .3s, transform .3s;
+    display:flex; align-items:center; justify-content:center; gap:10px;}
+  .form-submit:hover{background:var(--blue); transform:translateY(-2px);}
+  .form-note{font-size:12px; color:#8a8a92; margin-top:14px; text-align:center;}
+  .form-success{display:none; text-align:center; padding:40px 20px;}
+  .form-success.show{display:block;}
+  .form-success .check{width:56px; height:56px; border-radius:50%; background:var(--blue); color:#fff;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:26px;}
+  .form-success h4{font-size:20px; font-weight:700;}
+  .form-success p{margin-top:8px; color:#6a6a72; font-size:14px;}
+
+  .contact-side{display:flex; flex-direction:column; gap:16px;}
+  .side-card{background:var(--ink); color:var(--white); border-radius:20px; padding:28px; flex:1;
+    display:flex; flex-direction:column; justify-content:space-between; min-height:130px;}
+  .side-card h4{font-size:15px; font-weight:600; color:var(--mist);}
+  .side-card .val{font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:600; margin-top:10px;}
+  .side-card.accent{background:var(--blue);}
+  .side-card.accent2{background:var(--orange);}

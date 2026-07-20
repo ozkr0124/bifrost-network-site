@@ -1,0 +1,37 @@
+/* Bifröst Network — Utilidades base (progreso de scroll, reveal on scroll, contenedor de sección)
+   Importado por index.html vía <link> */
+
+  /* ---------- Scroll progress beam ---------- */
+  .beam-progress{
+    position:fixed; top:0; left:0; height:3px; width:100%;
+    background:var(--grad-beam);
+    transform-origin:left;
+    transform:scaleX(0);
+    z-index:1000;
+    box-shadow:0 0 12px rgba(0,17,255,0.5);
+  }
+
+  /* ---------- Reveal utility ---------- */
+  .reveal{opacity:0; transform:translateY(36px); transition:opacity .9s var(--ease-soft), transform .9s var(--ease-soft);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .reveal-stagger > *{opacity:0; transform:translateY(30px); transition:opacity .8s var(--ease-soft), transform .8s var(--ease-soft);}
+  .reveal-stagger.in > *{opacity:1; transform:translateY(0);}
+  .reveal-stagger.in > *:nth-child(1){transition-delay:.05s;}
+  .reveal-stagger.in > *:nth-child(2){transition-delay:.15s;}
+  .reveal-stagger.in > *:nth-child(3){transition-delay:.25s;}
+  .reveal-stagger.in > *:nth-child(4){transition-delay:.35s;}
+  .reveal-stagger.in > *:nth-child(5){transition-delay:.45s;}
+
+  /* ---------- Section shell ---------- */
+  section{position:relative;}
+  .section-pad{padding:130px 0;}
+  @media (max-width:720px){.section-pad{padding:90px 0;}}
+  .light{background:var(--paper); color:var(--ink);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--blue); display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .eyebrow::before{content:''; width:20px; height:1px; background:var(--blue);}
+  .light .eyebrow{color:var(--blue);}
+  .section-head{max-width:640px;}
+  .section-head h2{font-size:clamp(30px,4.2vw,50px); font-weight:800; letter-spacing:-0.025em; line-height:1.08;}
+  .section-head p{margin-top:18px; font-size:17px; color:var(--mist); font-weight:500; line-height:1.55;}
+  .light .section-head p{color:#57575f;}
