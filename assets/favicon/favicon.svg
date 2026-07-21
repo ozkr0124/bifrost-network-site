@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Bifröst Network — Favicon fuente
+  Basado en assets/svg/isotipo_w.svg (isotipo blanco), compuesto sobre un círculo de fondo
+  #050507 (color ink de la marca) para que se vea bien tanto en pestañas de navegador
+  claras como oscuras — el anillo blanco del isotipo original es casi invisible sobre un
+  fondo de pestaña claro sin este respaldo.
+-->
+<svg width="64" height="64" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="32" fill="#050507"/>
+  <g transform="translate(9.5,9.3) scale(0.0767)">
+    <path d="M231.091,381.421c0,-34.552 28.052,-62.604 62.604,-62.604c34.552,0 62.604,28.052 62.604,62.604c0,34.552 -28.052,62.604 -62.604,62.604c-34.552,0 -62.604,-28.052 -62.604,-62.604Z" fill="#FE5000"/>
+    <path d="M230.782,209.459c0,-34.552 28.052,-62.604 62.604,-62.604c34.552,0 62.604,28.052 62.604,62.604c0,34.552 -28.052,62.604 -62.604,62.604c-34.552,0 -62.604,-28.052 -62.604,-62.604Z" fill="#0011FF"/>
+    <path d="M292.342,0c-176.449,0 -292.342,128.422 -292.342,294.43c0,167.052 115.893,294.43 292.342,294.43c177.493,0 294.43,-127.377 294.43,-294.43c0,-166.008 -116.937,-294.43 -294.43,-294.43Zm1.044,119.025c83.526,0 127.377,70.997 127.377,175.405c0,105.452 -43.851,177.493 -127.377,177.493c-81.438,0 -127.377,-72.041 -127.377,-177.493c0,-104.408 45.939,-175.405 127.377,-175.405Z" fill="#FFFFFF"/>
+  </g>
+</svg>
