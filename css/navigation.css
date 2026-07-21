@@ -26,11 +26,11 @@
   .nav-links a:hover{color:var(--white);}
   .nav-cta{
     padding:10px 20px; border-radius:100px;
-    background:var(--white); color:var(--ink);
+    background:var(--blue); color:var(--ink);
     font-size:14px; font-weight:600;
     transition:transform .3s var(--ease), background .3s;
   }
-  .nav-cta:hover{transform:translateY(-2px); background:var(--paper);}
+  .nav-cta:hover{transform:translateY(-2px); background:var(--blue);}
   .nav-burger{display:none;}
 
   @media (max-width: 880px){
