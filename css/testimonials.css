@@ -2,11 +2,13 @@
    Importado por index.html vía <link> */
 
   /* ---------- Testimonios ---------- */
-  .testi{background:var(--ink);}
+  .testi{background:var(--paper); color:var(--ink);}
   .testi-track{margin-top:56px; display:flex; gap:20px; overflow-x:auto; padding:6px 4px 26px;
     scroll-snap-type:x mandatory; scrollbar-width:thin;}
   .testi-track::-webkit-scrollbar{height:5px;}
   .testi-track::-webkit-scrollbar-thumb{background:var(--line); border-radius:10px;}
+  /* Tarjetas oscuras a propósito: quedan flotando sobre la sección clara, igual que el
+     banner de Bifröst TV en la sección Planes — mismo lenguaje visual reutilizado. */
   .testi-card{scroll-snap-align:start; flex:0 0 min(360px,82vw); background:var(--ink-2);
     border:1px solid var(--line); border-radius:20px; padding:30px; display:flex; flex-direction:column; gap:18px;}
   .testi-card .stars{color:var(--orange); font-size:14px; letter-spacing:2px;}

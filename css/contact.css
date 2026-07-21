@@ -2,9 +2,10 @@
    Importado por index.html vía <link> */
 
   /* ---------- Contacto ---------- */
-  .contact{background:var(--paper); color:var(--ink);}
+  .contact{background:var(--ink); color:var(--white);}
   .contact-grid{margin-top:56px; display:grid; grid-template-columns:1.15fr 0.85fr; gap:20px;}
   @media (max-width:900px){.contact-grid{grid-template-columns:1fr;}}
+  /* Formulario blanco a propósito: tarjeta clara flotando sobre la sección oscura. */
   .contact-form{background:var(--white); border-radius:24px; padding:40px; border:1px solid var(--line-dark);}
   .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   @media (max-width:520px){.field-row{grid-template-columns:1fr;}}
@@ -32,9 +33,12 @@
   .form-success p{margin-top:8px; color:#6a6a72; font-size:14px;}
 
   .contact-side{display:flex; flex-direction:column; gap:16px;}
-  .side-card{background:var(--ink); color:var(--white); border-radius:20px; padding:28px; flex:1;
+  /* side-card neutro: antes contrastaba contra la sección clara con var(--ink); ahora que la
+     sección es oscura, pasa a ink-2 + borde para seguir distinguiéndose del fondo. */
+  .side-card{background:var(--ink-2); color:var(--white); border-radius:20px; padding:28px; flex:1;
+    border:1px solid var(--line);
     display:flex; flex-direction:column; justify-content:space-between; min-height:130px;}
   .side-card h4{font-size:15px; font-weight:600; color:var(--mist);}
   .side-card .val{font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:600; margin-top:10px;}
-  .side-card.accent{background:var(--blue);}
-  .side-card.accent2{background:var(--orange);}
+  .side-card.accent{background:var(--blue); border-color:transparent;}
+  .side-card.accent2{background:var(--orange); border-color:transparent;}
