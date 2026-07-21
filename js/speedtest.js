@@ -6,7 +6,7 @@
   // ---------- Backend de LibreSpeed: local (Docker) vs producción ----------
   // Cambia esto a false para probar localmente con "docker compose up" (ver README.md
   // de la raíz del proyecto). En true, apunta a tu subdominio real en el Proxmox.
-  const USE_PRODUCTION_BACKEND = false; // cámbialo a true cuando termines PRODUCCION.md
+  const USE_PRODUCTION_BACKEND = true;
   const BACKEND_BASE = USE_PRODUCTION_BACKEND
     ? 'https://speedtest.bifrostinternet.com'
     : '/speedtest-backend';

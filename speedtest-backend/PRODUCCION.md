@@ -57,6 +57,17 @@ sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d speedtest.bifrostinternet.com
 ```
 
+Con el certificado emitido, el bloque `80` queda como una simple redirección a HTTPS (el
+bloque `443` se queda con la config real, sirviendo los archivos):
+
+```nginx
+server {
+    listen 80;
+    server_name speedtest.bifrostinternet.com;
+    return 301 https://$host$request_uri;
+}
+```
+
 No hace falta agregar cabeceras CORS en nginx — `garbage.php`/`empty.php`/`getIP.php` ya las
 agregan ellos mismos cuando reciben `?cors=true` (que es justo lo que la landing les manda
 automáticamente en modo producción — ver `js/speedtest.js`, variable `USE_PRODUCTION_BACKEND`).
@@ -159,6 +170,49 @@ add chain=srcnat action=masquerade \
 Ajusta `<TU_RANGO_DE_SUSCRIPTORES>` a tu(s) rango(s) real(es) de IP de clientes (o pools de
 IPoE). Esta regla es un complemento, no un reemplazo del paso 3 — el DNS split-horizon ya
 resuelve el caso normal; esto solo blinda el caso excepcional.
+
+---
+
+## 5. Aislar VLAN200 (suscriptores) de VLAN100 (gestión) — excepto lo estrictamente necesario
+
+Si tus suscriptores (VLAN200, `100.64.0.0/10`) y tu red de gestión (VLAN100, `10.128.0.0/10`)
+están en el mismo router con rutas conectadas entre sí (caso típico), por defecto **no hay
+ningún aislamiento** entre ellas — cualquier suscriptor podría intentar llegar a tus OLT,
+switches o servidores de gestión. Hay que bloquear eso explícitamente, dejando pasar solo lo
+que el propio medidor de velocidad necesita.
+
+**Importante:** la excepción no es solo el backend (`10.128.0.13`) — tus dos resolutores DNS
+(`10.128.0.200` y `10.128.0.201`) también viven en `10.128.0.0/10`. Si los bloqueas junto con
+el resto de la gestión, tus suscriptores dejan de poder resolver DNS por completo (incluyendo
+el propio `speedtest.bifrostinternet.com`), rompiendo todo lo que armamos en la sección 3.
+
+| IP | Puerto permitido | Para qué |
+|---|---|---|
+| `10.128.0.200` | 53 (UDP+TCP) | DNS |
+| `10.128.0.201` | 53 (UDP+TCP) | DNS |
+| `10.128.0.13` | 80, 443 (TCP) | Medidor de velocidad |
+
+```routeros
+# El orden importa: las excepciones (accept) deben ir ANTES del bloqueo general (drop).
+/ip firewall filter
+add chain=forward action=accept protocol=udp dst-port=53 src-address=100.64.0.0/10 dst-address=10.128.0.200 comment="Bifrost: VLAN200 -> DNS .200 (UDP)"
+add chain=forward action=accept protocol=tcp dst-port=53 src-address=100.64.0.0/10 dst-address=10.128.0.200 comment="Bifrost: VLAN200 -> DNS .200 (TCP)"
+add chain=forward action=accept protocol=udp dst-port=53 src-address=100.64.0.0/10 dst-address=10.128.0.201 comment="Bifrost: VLAN200 -> DNS .201 (UDP)"
+add chain=forward action=accept protocol=tcp dst-port=53 src-address=100.64.0.0/10 dst-address=10.128.0.201 comment="Bifrost: VLAN200 -> DNS .201 (TCP)"
+add chain=forward action=accept protocol=tcp dst-port=80,443 src-address=100.64.0.0/10 dst-address=10.128.0.13 comment="Bifrost: VLAN200 -> backend speedtest (80/443)"
+add chain=forward action=drop src-address=100.64.0.0/10 dst-address=10.128.0.0/10 comment="Bifrost: bloquear VLAN200 -> resto de VLAN100 (gestion)"
+```
+
+### Verificar
+
+```bash
+# Desde un cliente en VLAN200 — esto debe seguir funcionando:
+nslookup speedtest.bifrostinternet.com
+curl -I https://speedtest.bifrostinternet.com/empty.php
+
+# Y esto debe fallar por timeout (confirma que el bloqueo sí quedó activo):
+curl -m 5 -I http://10.128.0.12
+```
 
 ---
 
