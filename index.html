@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/plans.css">
 <link rel="stylesheet" href="css/coverage.css">
+<link rel="stylesheet" href="css/speedtest.css">
 <link rel="stylesheet" href="css/about.css">
 <link rel="stylesheet" href="css/testimonials.css">
 <link rel="stylesheet" href="css/contact.css">
@@ -38,6 +39,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#planes">Planes</a>
       <a href="#cobertura">Cobertura</a>
+      <a href="#velocidad">Velocidad</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#testimonios">Clientes</a>
       <a href="#contacto" class="nav-cta">Contratar</a>
@@ -170,6 +172,86 @@
         </div>
       </div>
       <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VELOCIDAD ============ -->
+<section class="speedtest section-pad" id="velocidad">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Velocidad</div>
+      <h2>Mide tu conexión<br>al instante.</h2>
+      <p>Elige el motor de medición que prefieras. Ambos corren directo desde tu navegador, sin instalar nada.</p>
+      <div class="engine-toggle">
+        <button type="button" data-engine="librespeed">LibreSpeed</button>
+        <button type="button" data-engine="ookla">Ookla</button>
+      </div>
+    </div>
+
+    <div class="speedtest-panels reveal">
+      <!-- ---------- Panel LibreSpeed ---------- -->
+      <div class="st-panel" id="panel-librespeed">
+        <div class="st-card">
+          <!-- Túnel Bifröst: visualización propia en canvas (ver js/bifrost-tunnel.js).
+               Reemplaza el velocímetro circular clásico por un túnel de anillos que viajan
+               hacia el centro (descarga) o hacia afuera (subida). -->
+          <div class="tunnel-wrap">
+            <canvas class="tunnel-canvas" id="tunnelCanvas"></canvas>
+            <div class="tunnel-center">
+              <div class="tunnel-value" id="gaugeValue">0</div>
+              <div class="tunnel-unit" id="gaugeUnit"></div>
+            </div>
+            <div class="tunnel-ring-outer"></div>
+          </div>
+
+          <div class="gauge-phase" id="gaugePhase">Listo para iniciar</div>
+
+          <button type="button" class="st-start-btn" id="startTestBtn">Iniciar prueba de velocidad</button>
+
+          <div class="st-stats">
+            <div class="st-stat">
+              <div class="lbl">Ping</div>
+              <div class="val" id="statPing">--<span>ms</span></div>
+            </div>
+            <div class="st-stat">
+              <div class="lbl">Jitter</div>
+              <div class="val" id="statJitter">--<span>ms</span></div>
+            </div>
+            <div class="st-stat">
+              <div class="lbl">Descarga</div>
+              <div class="val" id="statDownload">--<span>Mbps</span></div>
+            </div>
+            <div class="st-stat">
+              <div class="lbl">Subida</div>
+              <div class="val" id="statUpload">--<span>Mbps</span></div>
+            </div>
+          </div>
+
+          <div class="st-ip" id="statIp"></div>
+        </div>
+      </div>
+
+      <!-- ---------- Panel Ookla ----------
+           No existe una forma gratuita de embeber una prueba EN VIVO de Ookla con diseño propio:
+           el iframe oficial de speedtest.net bloquea ser incrustado (X-Frame-Options), y la única
+           opción con UI personalizable ("Speedtest Custom") requiere cuenta de partner de pago.
+
+           Plan acordado: cuando despliegues tu propio OoklaServer (autohospedado), SÍ podrás
+           embeberlo aquí con tu propio diseño, porque tú controlas el dominio y las cabeceras.
+           Mientras tanto, este panel ofrece un botón que abre Speedtest.net en una pestaña nueva.
+
+           Para activarlo cuando tengas tu OoklaServer: reemplaza el bloque de abajo por:
+           <iframe src="https://TU-OOKLASERVER-URL" ...></iframe>
+      -->
+      <div class="st-panel" id="panel-ookla">
+        <div class="st-card">
+          <div class="ookla-badge"><span class="dot"></span>Ookla Speedtest</div>
+          <h3>Muy pronto, medición Ookla en tu propio servidor</h3>
+          <p>Estamos desplegando nuestro propio OoklaServer para ofrecerte mediciones con la red de Ookla directo aquí, con el diseño de Bifröst. Mientras tanto, puedes usar el Speedtest oficial en una pestaña nueva.</p>
+          <a href="https://www.speedtest.net/" target="_blank" rel="noopener" class="ookla-open-btn">Abrir Speedtest.net ↗</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -396,5 +478,10 @@
 <script src="js/map.js"></script>
 <script src="js/main.js"></script>
 <script src="js/contact-form.js"></script>
+
+<!-- LibreSpeed (medidor de velocidad) — librería oficial, ver js/vendor/librespeed/LICENSE (LGPLv3) -->
+<script src="js/vendor/librespeed/speedtest.js"></script>
+<script src="js/bifrost-tunnel.js"></script>
+<script src="js/speedtest.js"></script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+# Bifröst Network — Backend de LibreSpeed (Docker Compose)
+#
+# Levanta el backend OFICIAL de LibreSpeed en modo "backend" (solo expone
+# garbage.php, empty.php y getIP.php — sin interfaz, porque la interfaz
+# la construimos nosotros en la landing page).
+#
+# Uso:
+#   cd speedtest-backend/
+#   docker compose up -d
+#
+# Esto deja el backend escuchando en el puerto 8880 del servidor.
+# Después debes exponerlo detrás de tu nginx (ver README.md de esta carpeta)
+# para que quede en la misma ruta que la landing y evitar problemas de CORS.
+
+services:
+  librespeed-backend:
+    container_name: bifrost-speedtest-backend
+    image: ghcr.io/librespeed/speedtest:latest
+    restart: always
+    environment:
+      MODE: backend
+      # Si más adelante quieres info de ISP/distancia vía ipinfo.io, descomenta y agrega tu API key:
+      # IPINFO_APIKEY: "tu_api_key_aqui"
+    ports:
+      - "8880:8080"   # host:contenedor — cambia el 8880 si ya usas ese puerto

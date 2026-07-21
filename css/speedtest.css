@@ -1,0 +1,84 @@
+/* Bifröst Network — Sección Velocidad (medidor de velocidad)
+   Importado por index.html vía <link> */
+
+  .speedtest{background:var(--paper); color:var(--ink);}
+
+  /* ---------- Toggle de motor (LibreSpeed / Ookla) ---------- */
+  .engine-toggle{
+    display:inline-flex; gap:4px; padding:5px; border-radius:100px;
+    background:#EFEFEC; border:1px solid var(--line-dark); margin-top:8px;
+  }
+  .engine-toggle button{
+    padding:9px 20px; border-radius:100px; font-size:13.5px; font-weight:600;
+    color:#6a6a72; transition:background .3s, color .3s, box-shadow .3s;
+  }
+  .engine-toggle button.active{background:var(--ink); color:var(--white); box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+
+  /* ---------- Layout general ---------- */
+  .speedtest-panels{margin-top:52px;}
+  .st-panel{display:none;}
+  .st-panel.active{display:block;}
+
+  .st-card{
+    background:var(--white); border-radius:26px; border:1px solid var(--line-dark);
+    padding:52px 40px; display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+
+  /* ---------- Túnel Bifröst (portal del medidor) ---------- */
+  .tunnel-wrap{
+    position:relative; width:100%; max-width:640px; aspect-ratio:16/9; margin:0 auto;
+    border-radius:22px; overflow:hidden;
+    box-shadow:0 0 0 1px var(--line-dark), 0 30px 70px -20px rgba(0,17,255,0.28);
+  }
+  .tunnel-canvas{display:block; width:100%; height:100%;}
+  .tunnel-ring-outer{
+    position:absolute; inset:0; border-radius:22px; pointer-events:none;
+    box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.06), inset 0 0 60px rgba(0,0,0,0.5);
+  }
+  .tunnel-center{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    display:flex; flex-direction:column; align-items:center; pointer-events:none;
+  }
+  .tunnel-value{font-family:'IBM Plex Mono',monospace; font-size:clamp(34px,6.5vw,50px); font-weight:600; line-height:1; color:var(--white); text-shadow:0 2px 18px rgba(0,0,0,0.7);}
+  .tunnel-unit{font-family:'IBM Plex Mono',monospace; font-size:12px; color:rgba(255,255,255,0.8); margin-top:5px; text-shadow:0 2px 10px rgba(0,0,0,0.7);}
+
+  .gauge-phase{margin-top:22px; font-size:13px; font-weight:600; color:var(--blue); letter-spacing:.02em;}
+
+  /* ---------- Botón iniciar ---------- */
+  .st-start-btn{
+    margin-top:36px; padding:15px 36px; border-radius:100px; font-size:15px; font-weight:700;
+    color:var(--white); background:var(--grad-beam); background-size:200% 100%;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), opacity .3s;
+  }
+  .st-start-btn:hover:not(:disabled){transform:translateY(-3px); box-shadow:0 16px 32px rgba(0,17,255,0.22);}
+  .st-start-btn:disabled{opacity:.6; cursor:default;}
+  .st-start-btn.testing{animation:stPulseBeam 1.8s ease-in-out infinite;}
+  @keyframes stPulseBeam{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+
+  /* ---------- Tarjetas de estadísticas ---------- */
+  .st-stats{
+    margin-top:44px; width:100%; max-width:520px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+  }
+  @media (max-width:560px){.st-stats{grid-template-columns:repeat(2,1fr);}}
+  .st-stat{background:var(--paper); border-radius:14px; padding:16px 10px;}
+  .st-stat .lbl{font-size:11px; font-weight:600; color:#8a8a92; text-transform:uppercase; letter-spacing:.06em;}
+  .st-stat .val{font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; color:var(--ink); margin-top:6px;}
+  .st-stat .val span{font-size:11px; font-weight:500; color:#8a8a92; margin-left:2px;}
+
+  .st-ip{margin-top:22px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#8a8a92;}
+
+  /* ---------- Panel Ookla ---------- */
+  .ookla-badge{
+    display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:100px;
+    background:#EFEFEC; font-size:12.5px; font-weight:600; color:#57575f; margin-bottom:22px;
+  }
+  .ookla-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--orange);}
+  .st-card h3{font-size:24px; font-weight:800; letter-spacing:-0.015em; max-width:420px;}
+  .st-card p{margin-top:12px; font-size:14.5px; color:#6a6a72; max-width:440px; line-height:1.6;}
+  .ookla-open-btn{
+    margin-top:26px; padding:14px 30px; border-radius:100px; font-size:14.5px; font-weight:600;
+    background:var(--ink); color:var(--white); display:inline-flex; align-items:center; gap:8px;
+    transition:background .3s, transform .3s;
+  }
+  .ookla-open-btn:hover{background:var(--blue); transform:translateY(-2px);}

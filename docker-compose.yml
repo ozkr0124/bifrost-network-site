@@ -1,0 +1,44 @@
+# Bifröst Network — Stack de pruebas locales (Mac + Docker Desktop)
+#
+# Levanta TODO lo necesario para probar la landing con el túnel Bifröst funcionando
+# de verdad en tu máquina: nginx sirviendo el sitio + el backend oficial de LibreSpeed,
+# ya conectados entre sí.
+#
+# Uso:
+#   docker compose up -d
+#   abre http://localhost:8080
+#
+# Para bajarlo:
+#   docker compose down
+#
+# NOTA: este archivo es solo para pruebas locales. Para producción, el backend de
+# LibreSpeed se despliega por separado — ver speedtest-backend/README.md (ese es
+# el que usarías en tu servidor real, detrás de tu nginx real con tu dominio).
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: bifrost-landing-web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./css:/usr/share/nginx/html/css:ro
+      - ./js:/usr/share/nginx/html/js:ro
+      - ./assets:/usr/share/nginx/html/assets:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - speedtest-backend
+
+  speedtest-backend:
+    image: ghcr.io/librespeed/speedtest:latest
+    container_name: bifrost-speedtest-backend
+    restart: unless-stopped
+    environment:
+      MODE: backend
+    # No se expone puerto al host a propósito: nginx (servicio "web") es quien habla
+    # con este contenedor internamente, vía la red que crea docker compose automáticamente.
+    # Si quieres pegarle directo para probar con curl, descomenta:
+    # ports:
+    #   - "8880:8080"
