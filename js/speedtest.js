@@ -159,32 +159,69 @@
     return speedtest;
   }
 
+  /**
+   * Verifica que el backend responda antes de lanzar la prueba completa.
+   * Sin esto, si el backend no existe (ej. todavía no desplegado, o ruta mal configurada),
+   * LibreSpeed igual intenta sostener varias conexiones en paralelo durante toda la fase de
+   * descarga — cada una fallando al instante y abriendo la siguiente de inmediato — lo que
+   * en unos segundos puede parecer un ataque al hosting donde vive la landing y hacer que
+   * te bloqueen temporalmente (esto es justo lo que pasó en GitHub Pages).
+   */
+  function checkBackendReachable() {
+    if (!window.fetch || !window.AbortController) return Promise.resolve(true); // navegador muy viejo: no bloquear la prueba por esto
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4000);
+    return fetch(BACKEND_BASE + '/empty.php?r=' + Math.random(), {
+      method: 'GET',
+      cache: 'no-store',
+      signal: controller.signal,
+    })
+      .then((res) => res.ok)
+      .catch(() => false)
+      .finally(() => clearTimeout(timeout));
+  }
+
   function runTest() {
     if (typeof Speedtest === 'undefined') {
       if (els.phase) els.phase.textContent = 'No se pudo cargar el motor de medición (revisa la consola).';
       return;
     }
-    const st = ensureSpeedtestInstance();
     resetStats();
-    if (tunnel) tunnel.start();
     if (els.startBtn) {
       els.startBtn.disabled = true;
       els.startBtn.classList.add('testing');
-      els.startBtn.textContent = 'Probando…';
+      els.startBtn.textContent = 'Comprobando servidor…';
     }
-    if (els.phase) els.phase.textContent = 'Preparando…';
-    try {
-      st.start();
-    } catch (err) {
-      console.error('Bifröst speedtest error:', err);
-      if (els.phase) els.phase.textContent = 'Error al iniciar la prueba (ver consola).';
-      if (els.startBtn) {
-        els.startBtn.disabled = false;
-        els.startBtn.classList.remove('testing');
-        els.startBtn.textContent = 'Reintentar';
+    if (els.phase) els.phase.textContent = 'Comprobando disponibilidad del servidor…';
+
+    checkBackendReachable().then((ok) => {
+      if (!ok) {
+        if (els.phase) els.phase.textContent = 'El servidor de medición no está disponible en este momento.';
+        if (els.startBtn) {
+          els.startBtn.disabled = false;
+          els.startBtn.classList.remove('testing');
+          els.startBtn.textContent = 'Reintentar';
+        }
+        return;
       }
-      if (tunnel) tunnel.stop();
-    }
+
+      const st = ensureSpeedtestInstance();
+      if (tunnel) tunnel.start();
+      if (els.startBtn) els.startBtn.textContent = 'Probando…';
+      if (els.phase) els.phase.textContent = 'Preparando…';
+      try {
+        st.start();
+      } catch (err) {
+        console.error('Bifröst speedtest error:', err);
+        if (els.phase) els.phase.textContent = 'Error al iniciar la prueba (ver consola).';
+        if (els.startBtn) {
+          els.startBtn.disabled = false;
+          els.startBtn.classList.remove('testing');
+          els.startBtn.textContent = 'Reintentar';
+        }
+        if (tunnel) tunnel.stop();
+      }
+    });
   }
 
   if (els.startBtn) els.startBtn.addEventListener('click', runTest);
