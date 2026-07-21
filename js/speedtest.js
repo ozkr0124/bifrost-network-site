@@ -171,7 +171,11 @@
     if (!window.fetch || !window.AbortController) return Promise.resolve(true); // navegador muy viejo: no bloquear la prueba por esto
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
-    return fetch(BACKEND_BASE + '/empty.php?r=' + Math.random(), {
+    // cors=true: mismo parámetro que la librería agrega automáticamente en sus propias
+    // peticiones (vía mpot) — sin esto, en producción (backend en otro dominio) el navegador
+    // bloquea esta verificación previa por CORS, aunque el backend sí lo soporte.
+    const corsParam = USE_PRODUCTION_BACKEND ? '&cors=true' : '';
+    return fetch(BACKEND_BASE + '/empty.php?r=' + Math.random() + corsParam, {
       method: 'GET',
       cache: 'no-store',
       signal: controller.signal,
