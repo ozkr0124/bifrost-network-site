@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muy Pronto — Bifröst Network</title>
+<meta name="description" content="El puente hacia el mejor internet de Colombia está en construcción. Lanzamiento: 1 de septiembre 2026.">
+
+<!-- Favicon -->
+<link rel="icon" href="assets/favicon/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/favicon/favicon.ico">
+<link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#050507">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Muy Pronto — Bifröst Network">
+<meta property="og:description" content="El puente hacia el mejor internet de Colombia está en construcción.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+
+<!-- Styles -->
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/comingsoon.css">
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  
+  <div class="container">
+    <!-- Isotipo animado -->
+    <div class="logo-container">
+      <div class="logo-glow"></div>
+      <img class="isotipo" src="assets/svg/isotipo_w.svg" alt="Bifröst Network" width="160" height="160">
+    </div>
+
+    <!-- Logo Bifröst -->
+    <img class="logo-bifrost" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S." width="180" height="59">
+
+    <div class="divider"></div>
+
+    <!-- Título -->
+    <h1 class="title">MUY PRONTO</h1>
+    <p class="subtitle">El puente se está tendiendo</p>
+
+    <!-- Cuenta regresiva -->
+    <div class="countdown" id="countdown">
+      <div class="countdown-block">
+        <div class="countdown-value" id="days">00</div>
+        <div class="countdown-label">DÍAS</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <div class="countdown-value" id="hours">00</div>
+        <div class="countdown-label">HORAS</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <div class="countdown-value" id="minutes">00</div>
+        <div class="countdown-label">MIN</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-block">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label">SEG</div>
+      </div>
+    </div>
+
+    <!-- Haz Bifröst -->
+    <svg class="beam" viewBox="0 0 720 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="720" height="90">
+      <defs>
+        <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0011FF"/>
+          <stop offset="35%" stop-color="#8b3fff"/>
+          <stop offset="65%" stop-color="#ff3f8b"/>
+          <stop offset="100%" stop-color="#FE5000"/>
+          
+          <!-- Animar la posición del gradiente para crear efecto de flujo -->
+          <animate attributeName="x1" values="-1;1;-1" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="x2" values="0;2;0" dur="3s" repeatCount="indefinite"/>
+        </linearGradient>
+      </defs>
+      <path class="beam-path" d="M4 70 C 180 -10, 540 -10, 716 70" stroke="url(#beamGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Bifröst Network S.A.S. · Medellín, Colombia</p>
+    </footer>
+  </div>
+
+  <script src="js/countdown.js"></script>
+</body>
+</html>

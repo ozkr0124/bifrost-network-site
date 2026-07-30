@@ -1,0 +1,389 @@
+/* Bifröst Network — Coming Soon Page
+   Cuenta regresiva hasta el 1 de septiembre 2026 */
+
+/* ========== Reset & Base ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: 
+    radial-gradient(ellipse 60% 40% at 25% 20%, rgba(0, 17, 255, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(254, 80, 0, 0.15), transparent 70%),
+    var(--ink);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ========== Particles Background ========== */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(1px);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0);
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) translateX(var(--drift));
+  }
+}
+
+/* ========== Main Container ========== */
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* ========== Logo Section ========== */
+.logo-container {
+  position: relative;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: scale(0.6);
+  animation: logoEnter 1.4s var(--ease) 0.2s forwards;
+}
+
+@keyframes logoEnter {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 17, 255, 0.4) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+    background: radial-gradient(circle, rgba(254, 80, 0, 0.4) 0%, transparent 70%);
+  }
+}
+
+.isotipo {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  animation: isotipoPulse 3s ease-in-out infinite, isotipoFloat 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(0, 17, 255, 0.5));
+}
+
+@keyframes isotipoPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes isotipoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.logo-bifrost {
+  width: 180px;
+  height: auto;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideUp 1s var(--ease-soft) 0.6s forwards;
+}
+
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Divider ========== */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--grad-beam);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: scaleX(0);
+  animation: dividerExpand 0.8s var(--ease) 1s forwards;
+}
+
+@keyframes dividerExpand {
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* ========== Title & Subtitle ========== */
+.title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideUp 1s var(--ease-soft) 1.2s forwards;
+}
+
+.subtitle {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 500;
+  color: var(--mist);
+  margin-bottom: 42px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideUp 1s var(--ease-soft) 1.4s forwards;
+}
+
+/* ========== Countdown ========== */
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 32px);
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1.2s var(--ease-soft) 1.6s forwards;
+  background: linear-gradient(
+    90deg,
+    #0011FF 0%,
+    #5B28FF 33%,
+    #FF3F8B 66%,
+    #FE5000 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.countdown-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  min-width: clamp(80px, 12vw, 140px);
+  position: relative;
+}
+
+.countdown-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(11px, 1.5vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--mist-dim);
+  text-transform: uppercase;
+}
+
+.countdown-separator {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 700;
+  color: var(--blue);
+  opacity: 1;
+  animation: separatorBlink 2s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(0, 17, 255, 0.6);
+}
+
+@keyframes separatorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* ========== Beam ========== */
+.beam {
+  width: min(720px, 90vw);
+  height: auto;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: beamFadeIn 1.5s var(--ease-soft) 1.8s forwards;
+}
+
+@keyframes beamFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.beam-path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: beamDraw 2.5s var(--ease-soft) 2s forwards;
+  filter: drop-shadow(0 0 12px rgba(0, 17, 255, 0.6));
+}
+
+@keyframes beamDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ========== Footer ========== */
+.footer {
+  opacity: 0;
+  animation: fadeSlideUp 1s var(--ease-soft) 2.2s forwards;
+}
+
+.footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mist-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 720px) {
+  .isotipo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .logo-bifrost {
+    width: 140px;
+  }
+
+  .countdown {
+    gap: 12px;
+  }
+
+  .countdown-block {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .isotipo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .logo-bifrost {
+    width: 120px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    margin-bottom: 30px;
+  }
+
+  .countdown {
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .countdown-separator {
+    display: none;
+  }
+
+  .countdown-block:nth-child(3),
+  .countdown-block:nth-child(5) {
+    margin-left: 0;
+  }
+
+  .beam {
+    margin-bottom: 32px;
+  }
+}
