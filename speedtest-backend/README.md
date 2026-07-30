@@ -77,7 +77,7 @@ marcadas con un comentario `// TODO BACKEND`):
 
 ```js
 s.addTestPoint({
-  name: "Bifröst Network",
+  name: "Bifröst Network S.A.S",
   server: "/speedtest-backend/",   // ← cambia esto por tu ruta real si es distinta
   dlURL: "garbage.php",
   ulURL: "empty.php",

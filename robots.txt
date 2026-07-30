@@ -1,4 +1,4 @@
-# robots.txt para Bifröst Network
+# robots.txt para Bifröst Network S.A.S
 # https://www.bifrostinternet.com/robots.txt
 
 User-agent: *
