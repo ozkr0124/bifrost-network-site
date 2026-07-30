@@ -1,0 +1,21 @@
+# robots.txt para Bifröst Network
+# https://www.bifrostinternet.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Prioridad para crawlers principales
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Bloquear acceso a archivos de sistema y configuración
+Disallow: /docker/
+Disallow: /speedtest-backend/
+Disallow: /*.yml
+Disallow: /*.conf
+
+# Sitemap
+Sitemap: https://www.bifrostinternet.com/sitemap.xml

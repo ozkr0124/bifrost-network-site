@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Imagen Social - Bifröst Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+    font-family: 'General Sans', sans-serif;
+  }
+  
+  .instructions {
+    background: #2a2a2a;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    max-width: 1200px;
+    text-align: center;
+  }
+  
+  .instructions h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #0011FF;
+  }
+  
+  .instructions p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ccc;
+  }
+  
+  .instructions code {
+    background: #3a3a3a;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #FE5000;
+  }
+  
+  /* CANVAS DE LA IMAGEN SOCIAL - DIMENSIONES EXACTAS */
+  .og-canvas {
+    width: 1200px;
+    height: 630px;
+    background: linear-gradient(135deg, #050507 0%, #0a0a0f 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+  }
+  
+  /* Efecto de fondo sutil */
+  .og-canvas::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 17, 255, 0.05) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+  }
+  
+  .og-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    text-align: center;
+  }
+  
+  /* Logo */
+  .og-logo {
+    height: 120px;
+    width: auto;
+    margin-bottom: 60px;
+    filter: drop-shadow(0 4px 20px rgba(0, 17, 255, 0.3));
+  }
+  
+  /* Texto principal */
+  .og-title {
+    font-family: 'General Sans', sans-serif;
+    color: #ffffff;
+    margin-bottom: 45px;
+    line-height: 1.2;
+  }
+  
+  .og-title .line1 {
+    display: block;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+  }
+  
+  .og-title .line2 {
+    display: block;
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #0011FF 0%, #5544FF 50%, #FE5000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+  
+  .og-title .line3 {
+    display: block;
+    font-size: 42px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #e0e0e0;
+  }
+  
+  /* Bullet points */
+  .og-features {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 55px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .og-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .og-feature .icon {
+    font-size: 32px;
+  }
+  
+  /* Haz Bifröst (gradiente) */
+  .og-beam {
+    width: 720px;
+    height: 90px;
+    margin-bottom: 45px;
+    filter: drop-shadow(0 0 12px rgba(0, 17, 255, 0.5));
+  }
+  
+  /* URL del sitio */
+  .og-url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 26px;
+    font-weight: 500;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Botón de ayuda */
+  .help-button {
+    margin-top: 30px;
+    background: #0011FF;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-family: 'General Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .help-button:hover {
+    background: #FE5000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(254, 80, 0, 0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <h2>📸 Cómo capturar la imagen</h2>
+  <p>
+    <strong>1.</strong> Usa una herramienta de captura de pantalla (⌘ + Shift + 4 en Mac, Windows + Shift + S en Windows)<br>
+    <strong>2.</strong> Selecciona SOLO el rectángulo azul de abajo (el canvas completo)<br>
+    <strong>3.</strong> Guarda la imagen como <code>og-image.jpg</code><br>
+    <strong>4.</strong> Colócala en la carpeta <code>assets/</code> de tu proyecto<br>
+    <strong>5.</strong> ¡Listo! Ya tienes tu imagen social optimizada 🎉
+  </p>
+</div>
+
+<!-- CANVAS DE LA IMAGEN - CAPTURA SOLO ESTO -->
+<div class="og-canvas">
+  <div class="og-content">
+    <!-- Logo Bifröst - importado desde assets -->
+    <img class="og-logo" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network">
+    
+    <!-- Título principal -->
+    <div class="og-title">
+      <span class="line1">El puente hacia el</span>
+      <span class="line2">MEJOR INTERNET</span>
+      <span class="line3">de Colombia</span>
+    </div>
+    
+    <!-- Características -->
+    <div class="og-features">
+      <div class="og-feature">
+        <span class="icon">⚡</span>
+        <span>Fibra Óptica GPON Simétrica</span>
+      </div>
+      <div class="og-feature">
+        <span class="icon">📍</span>
+        <span>Medellín, Colombia</span>
+      </div>
+    </div>
+    
+    <!-- Haz Bifröst - importado desde assets -->
+    <img class="og-beam" src="assets/svg/haz-bifrost.svg" alt="">
+    
+    <!-- URL -->
+    <div class="og-url">bifrostinternet.com</div>
+  </div>
+</div>
+
+<button class="help-button" onclick="alert('Pasos:\n1. Presiona ⌘ + Shift + 4 (Mac) o Windows + Shift + S (Windows)\n2. Selecciona el rectángulo completo de arriba\n3. Guarda como og-image.jpg\n4. Muévela a la carpeta assets/')">
+  ℹ️ Ver instrucciones detalladas
+</button>
+
+</body>
+</html>

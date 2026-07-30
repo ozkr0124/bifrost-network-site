@@ -1,11 +1,29 @@
 {
-  "name": "Bifröst Network S.A.S.",
+  "name": "Bifröst Network S.A.S. — Internet Fibra Óptica",
   "short_name": "Bifröst",
+  "description": "Internet de fibra óptica GPON simétrica en Medellín, Colombia. Planes Aurora, Rayo, Prisma y Cosmos.",
   "icons": [
-    { "src": "assets/favicon/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "assets/favicon/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { 
+      "src": "assets/favicon/icon-192.png", 
+      "sizes": "192x192", 
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    { 
+      "src": "assets/favicon/icon-512.png", 
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
   "theme_color": "#050507",
   "background_color": "#050507",
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "lang": "es-CO",
+  "dir": "ltr",
+  "categories": ["business", "utilities", "productivity"],
+  "screenshots": []
 }
