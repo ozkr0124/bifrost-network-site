@@ -15,6 +15,7 @@
   const secondsEl = document.getElementById('seconds');
   const countdownEl = document.getElementById('countdown');
   const particlesContainer = document.getElementById('particles');
+  const valueEls = countdownEl ? countdownEl.querySelectorAll('.countdown-value') : [];
 
   // ========== Estado anterior para detectar cambios ==========
   let previousValues = {
@@ -65,6 +66,28 @@
       element.textContent = formattedValue;
       previousValues[key] = formattedValue;
     }
+  }
+
+  // ========== Mantener gradiente continuo en todo el contador ==========
+  function updateCountdownGradient() {
+    if (!countdownEl || !valueEls.length) {
+      return;
+    }
+
+    const countdownRect = countdownEl.getBoundingClientRect();
+    const totalWidth = countdownRect.width;
+
+    if (!totalWidth) {
+      return;
+    }
+
+    valueEls.forEach((valueEl) => {
+      const valueRect = valueEl.getBoundingClientRect();
+      const xOffset = valueRect.left - countdownRect.left;
+
+      valueEl.style.setProperty('--countdown-gradient-width', `${totalWidth}px`);
+      valueEl.style.setProperty('--countdown-gradient-x', `${-xOffset}px`);
+    });
   }
 
   // ========== Guardar en localStorage ==========
@@ -189,6 +212,13 @@
 
     // Crear partículas
     createParticles();
+
+    // Alinear gradiente global con cada grupo numérico
+    updateCountdownGradient();
+
+    // Recalcular si cambia el viewport/orientación
+    window.addEventListener('resize', updateCountdownGradient);
+    window.addEventListener('orientationchange', updateCountdownGradient);
 
     // Iniciar actualización cada segundo
     setInterval(updateCountdown, 1000);

@@ -232,6 +232,13 @@ img, svg {
   opacity: 0;
   transform: translateY(30px);
   animation: fadeSlideUp 1.2s var(--ease-soft) 1.6s forwards;
+  --countdown-gradient: linear-gradient(
+    90deg,
+    #0011FF 0%,
+    #5B28FF 33%,
+    #FF3F8B 66%,
+    #FE5000 100%
+  );
 }
 
 .countdown-block {
@@ -249,13 +256,10 @@ img, svg {
   color: var(--white);
   min-width: clamp(80px, 12vw, 140px);
   position: relative;
-  background: linear-gradient(
-    90deg,
-    #0011FF 0%,
-    #5B28FF 33%,
-    #FF3F8B 66%,
-    #FE5000 100%
-  );
+  background: var(--countdown-gradient);
+  background-size: var(--countdown-gradient-width, 100%) 100%;
+  background-position: var(--countdown-gradient-x, 0) 0;
+  background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
