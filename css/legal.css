@@ -1,0 +1,215 @@
+/* Bifröst Network — Páginas de normatividad / documentos legales */
+
+/* ---------- Shell de página ---------- */
+.legal-page {
+  min-height: 100vh;
+  padding-top: 88px; /* compensa el nav fijo */
+}
+
+/* ---------- Hero compacto ---------- */
+.legal-hero {
+  background: var(--ink-2);
+  border-bottom: 1px solid var(--line);
+  padding: 72px 0 56px;
+}
+.legal-hero .eyebrow { margin-bottom: 16px; }
+.legal-hero h1 {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  max-width: 720px;
+}
+.legal-meta {
+  margin-top: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--mist-dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Link de regreso ---------- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--mist-dim);
+  margin-bottom: 52px;
+  transition: color .25s;
+}
+.back-link:hover { color: var(--white); }
+.back-link svg { flex-shrink: 0; }
+
+/* ---------- Cuerpo del documento ---------- */
+.legal-body { padding: 64px 0 100px; }
+
+/* ---------- Tipografía del contenido legal ---------- */
+.legal-content { max-width: 780px; }
+
+.legal-content h2 {
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--white);
+  margin-top: 56px;
+  margin-bottom: 16px;
+  padding-top: 56px;
+  border-top: 1px solid var(--line);
+}
+.legal-content h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.legal-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.legal-content p {
+  font-size: 15.5px;
+  color: var(--mist);
+  line-height: 1.72;
+  margin-bottom: 14px;
+}
+
+.legal-content ul,
+.legal-content ol {
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+.legal-content li {
+  font-size: 15.5px;
+  color: var(--mist);
+  line-height: 1.72;
+  margin-bottom: 10px;
+}
+.legal-content li::marker { color: var(--blue); }
+
+.legal-content strong { color: var(--white); font-weight: 600; }
+.legal-content em { font-style: italic; color: var(--mist); }
+
+.legal-content a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .2s;
+}
+.legal-content a:hover { color: #5577ff; }
+
+/* ---------- Tarjetas de contacto ---------- */
+.legal-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.legal-contact-card {
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.legal-contact-card h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mist-dim);
+  margin-bottom: 7px;
+}
+.legal-contact-card p {
+  font-size: 14px;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.5;
+}
+.legal-contact-card a {
+  color: var(--white);
+  text-decoration: none;
+}
+.legal-contact-card a:hover { color: var(--blue); }
+
+/* ---------- Caja de alerta / aviso ---------- */
+.legal-alert {
+  background: rgba(0,17,255,.07);
+  border: 1px solid rgba(0,17,255,.22);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 28px 0;
+}
+.legal-alert p { margin: 0; font-size: 14.5px; }
+
+/* ---------- Caja de aviso naranja (Ley 679) ---------- */
+.legal-alert-orange {
+  background: rgba(254,80,0,.07);
+  border: 1px solid rgba(254,80,0,.22);
+  border-left: 3px solid var(--orange);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 28px 0;
+}
+.legal-alert-orange p { margin: 0; font-size: 14.5px; }
+
+/* ---------- Lista de canales de denuncia ---------- */
+.legal-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.legal-channel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.legal-channel-item .channel-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0,17,255,.12);
+  border: 1px solid rgba(0,17,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.legal-channel-item .channel-body strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.legal-channel-item .channel-body p {
+  font-size: 13.5px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---------- Separador de sección ---------- */
+.legal-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .legal-page { padding-top: 74px; }
+  .legal-hero { padding: 52px 0 40px; }
+  .legal-body { padding: 44px 0 72px; }
+  .legal-content h2 { margin-top: 40px; padding-top: 40px; }
+  .back-link { margin-bottom: 36px; }
+}
