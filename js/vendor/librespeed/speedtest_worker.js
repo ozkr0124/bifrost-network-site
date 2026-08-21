@@ -579,7 +579,7 @@ function ulTest(done) {
 			tverb("POST request sent, starting upload test");
 			testFunction();
 		}.bind(this);
-		xhr[0].open("POST", settings.url_ul);
+		xhr[0].open("POST", settings.url_ul + url_sep(settings.url_ul) + "cors=true");
 		xhr[0].send();
 	} else testFunction();
 }

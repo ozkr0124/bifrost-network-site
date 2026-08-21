@@ -13,6 +13,7 @@
     color:#6a6a72; transition:background .3s, color .3s, box-shadow .3s;
   }
   .engine-toggle button.active{background:var(--ink); color:var(--white); box-shadow:0 4px 14px rgba(0,0,0,0.18);}
+  .engine-toggle button:disabled{opacity:0.38; cursor:not-allowed;}
 
   /* ---------- Layout general ---------- */
   .speedtest-panels{margin-top:52px;}

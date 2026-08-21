@@ -44,6 +44,24 @@
   try { savedEngine = localStorage.getItem('bifrost-speedtest-engine'); } catch (e) {}
   selectEngine(savedEngine === 'ookla' ? 'ookla' : 'librespeed', false);
 
+  // LibreSpeed no puede medir ≥400 Mbps con precisión en Safari — bloquear el panel
+  if (/^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent)) {
+    if (panels.librespeed) {
+      panels.librespeed.innerHTML =
+        '<div class="st-card">' +
+          '<div class="ookla-badge"><span class="dot"></span>LibreSpeed</div>' +
+          '<h3>Test no disponible en Safari</h3>' +
+          '<p>Las restricciones de WebKit impiden medir velocidades superiores a 400 Mbps con precisión en este navegador. Obtén resultados exactos con Chrome.</p>' +
+          '<a href="https://www.google.com/chrome/" target="_blank" rel="noopener" class="ookla-open-btn">Descargar Chrome ↗</a>' +
+        '</div>';
+    }
+    engineButtons.forEach(function(b) {
+      if (b.dataset.engine === 'librespeed') b.disabled = true;
+    });
+    selectEngine('ookla', false);
+    return;
+  }
+
   // ---------- Túnel Bifröst ----------
   // Importante: NO se llama tunnel.start() aquí. Al cargar la página solo se dibuja un
   // frame estático de reposo (sin loop de animación) — el túnel solo "cobra vida" cuando
@@ -111,6 +129,13 @@
     speedtest.setParameter('url_ul', BACKEND_BASE + '/empty.php');
     speedtest.setParameter('url_ping', BACKEND_BASE + '/empty.php');
     speedtest.setParameter('url_getIp', BACKEND_BASE + '/getIP.php');
+    // Optimizaciones para conexiones ≥400 Mbps
+    speedtest.setParameter('xhr_dlUseBlob', true);
+    speedtest.setParameter('xhr_dlMultistream', 10);
+    speedtest.setParameter('xhr_ulMultistream', 5);
+    speedtest.setParameter('garbagePhp_chunkSize', 200);
+    speedtest.setParameter('time_dlGraceTime', 2.5);
+    speedtest.setParameter('forceIE11Workaround', false);
 
     speedtest.onupdate = function (data) {
       if (els.phase) els.phase.textContent = PHASE_LABELS[data.testState] || '';
