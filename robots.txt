@@ -16,6 +16,8 @@ Disallow: /docker/
 Disallow: /speedtest-backend/
 Disallow: /*.yml
 Disallow: /*.conf
+Disallow: /docs/
+Disallow: /og-image-generator.html
 
 # Sitemap
 Sitemap: https://www.bifrostinternet.com/sitemap.xml

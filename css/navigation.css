@@ -1,5 +1,5 @@
 /* Bifröst Network — Barra de navegación
-   Importado por index.html vía <link> */
+   Importado por todas las páginas vía <link> */
 
   /* ---------- Nav ---------- */
   .nav{
@@ -26,7 +26,7 @@
   .nav-links a:hover{color:var(--white);}
   .nav-cta{
     padding:10px 20px; border-radius:100px;
-    background:var(--blue); color:var(--ink);
+    background:var(--blue); color:var(--white);
     font-size:14px; font-weight:600;
     transition:transform .3s var(--ease), background .3s;
   }
@@ -78,7 +78,7 @@
     .nav-links.open{transform:translateX(0);}
     .nav-links a{font-size:20px;}
     .nav-cta{margin-top:10px;}
-    .nav-burger{display:flex; flex-direction:column; gap:5px; width:26px; z-index:950;}
+    .nav-burger{display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; padding:0 9px; margin-right:-9px; z-index:950;}
     .nav-burger span{height:2px; width:100%; background:var(--white); transition:transform .3s, opacity .3s;}
     .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     .nav-burger.open span:nth-child(2){opacity:0;}

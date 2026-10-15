@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
 <title>Términos y Condiciones — Bifröst Network S.A.S.</title>
 <meta name="description" content="Términos y Condiciones de Prestación de Servicios de Telecomunicaciones de Bifröst Network S.A.S. Internet de fibra óptica GPON en Medellín, Colombia.">
 
@@ -35,50 +36,56 @@
 <link rel="stylesheet" href="css/navigation.css">
 <link rel="stylesheet" href="css/footer.css">
 <link rel="stylesheet" href="css/legal.css">
+<link rel="stylesheet" href="css/sections.css">
+<script src="js/config.js"></script>
+<script src="js/analytics.js"></script>
 </head>
 <body>
 
-<div class="beam-progress" id="beamProgress"></div>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<div class="beam-progress" id="beamProgress" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
-<nav class="nav solid" id="nav">
+<nav class="nav solid" id="nav" aria-label="Principal">
   <div class="wrap">
-    <a href="main.html" class="brand">
-      <img class="mark" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+    <a href="./" class="brand">
+      <img class="mark" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S. — inicio" width="110" height="36">
     </a>
 
     <div class="nav-links" id="navLinks">
-      <a href="main.html#planes">Planes</a>
-      <a href="main.html#cobertura">Cobertura</a>
-      <a href="main.html#velocidad">Velocidad</a>
-      <a href="main.html#nosotros">Nosotros</a>
-      <a href="main.html#testimonios">Clientes</a>
+      <a href="./#planes">Planes</a>
+      <a href="./#cobertura">Cobertura</a>
+      <a href="./#instalacion">Instalación</a>
+      <a href="./#preguntas">Preguntas</a>
+      <a href="velocidad.html">Velocidad</a>
       <div class="nav-dropdown-wrap">
-        <button class="nav-dropdown-toggle" id="normToggle" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="nav-dropdown-toggle" id="normToggle" aria-expanded="false" aria-controls="normMenu">
           Normatividad
           <svg class="chev" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
             <path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <div class="nav-dropdown-menu" id="normMenu" role="menu">
-          <a href="terminos-y-condiciones.html" role="menuitem" aria-current="page">Términos y Condiciones</a>
-          <a href="habeas-data.html" role="menuitem">Tratamiento de Datos</a>
-          <a href="neutralidad-red.html" role="menuitem">Neutralidad en la Red</a>
-          <a href="atencion-pqr.html" role="menuitem">Atención PQR</a>
-          <a href="prevencion-pornografia-infantil.html" role="menuitem">Ley 679 de 2001</a>
+        <div class="nav-dropdown-menu" id="normMenu">
+          <a href="terminos-y-condiciones.html" aria-current="page">Términos y Condiciones</a>
+          <a href="habeas-data.html">Tratamiento de Datos</a>
+          <a href="politica-de-cookies.html">Política de Cookies</a>
+          <a href="neutralidad-red.html">Neutralidad en la Red</a>
+          <a href="atencion-pqr.html">Atención PQR</a>
+          <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
         </div>
       </div>
-      <a href="main.html#contacto" class="nav-cta">Contratar</a>
+      <a href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero contratar internet de fibra." data-source="nav" class="nav-cta">Contratar</a>
     </div>
 
-    <button class="nav-burger" id="burger" aria-label="Menú">
+    <button type="button" class="nav-burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+
 <!-- ============ CONTENIDO LEGAL ============ -->
-<main class="legal-page">
+<main class="legal-page" id="contenido">
 
   <div class="legal-hero">
     <div class="wrap">
@@ -91,7 +98,7 @@
   <div class="legal-body">
     <div class="wrap">
 
-      <a href="main.html" class="back-link">
+      <a href="./" class="back-link">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -102,7 +109,7 @@
 
         <h2>1. Identificación de la Empresa y Generalidades</h2>
         <p>El presente documento regula los Términos y Condiciones bajo los cuales la empresa <strong>BIFRÖST NETWORK S.A.S.</strong>, identificada con <strong>NIT 902067656-1</strong>, con domicilio principal en la ciudad de Medellín - Antioquia, ubicada en la <strong>Carrera 15E # 45C - 41</strong>, representada legalmente por <strong>Oscar Camilo Loaiza Jaramillo</strong>, en adelante <strong>EL PROVEEDOR</strong>, prestará los servicios de telecomunicaciones a las personas naturales o jurídicas que contrataren dichos servicios, en adelante <strong>EL USUARIO</strong>.</p>
-        <p>La relación contractual se rige por la legislación colombiana aplicable, en especial la <strong>Ley 1341 de 2009</strong>, la <strong>Ley 1978 de 2019</strong>, la <strong>Resolución CRC 5111 de 2017</strong> (Régimen de Protección de los Derechos de los Usuarios de Servicios de Comunicaciones) y sus modificaciones, así como por las disposiciones de la Superintendencia de Industria y Comercio (SIC) y el Ministerio de Tecnologías de la Información y las Comunicaciones (MinTIC).</p>
+        <p>La relación contractual se rige por la legislación colombiana aplicable, en especial la <strong>Ley 1341 de 2009</strong>, la <strong>Ley 1978 de 2019</strong>, la <strong>Resolución CRC 5111 de 2017</strong> (Régimen de Protección de los Derechos de los Usuarios de Servicios de Comunicaciones, compilada en la <strong>Resolución CRC 5050 de 2016</strong>) y sus modificaciones, la <strong>Ley 1480 de 2011</strong> (Estatuto del Consumidor), así como por las disposiciones de la Superintendencia de Industria y Comercio (SIC) y el Ministerio de Tecnologías de la Información y las Comunicaciones (MinTIC).</p>
 
         <h2>2. Objeto y Ámbito de Cobertura</h2>
         <p><strong>EL PROVEEDOR</strong> prestará los servicios de:</p>
@@ -112,7 +119,7 @@
           <li>Internet Fijo Prepago FTTH.</li>
           <li>Servicios Corporativos y Soluciones DEDICADAS.</li>
         </ul>
-        <p><strong>Zona de Cobertura Principal:</strong> La prestación efectiva de los servicios se encuentra sujeta a disponibilidad técnica dentro de la <strong>Comuna Buenos Aires</strong> en el municipio de <strong>Medellín, Antioquia</strong>.</p>
+        <p><strong>Zona de Cobertura Principal:</strong> La prestación efectiva de los servicios se encuentra sujeta a disponibilidad técnica dentro de la <strong>Comuna 9 – Buenos Aires</strong> del municipio de <strong>Medellín, Antioquia</strong>. A la fecha, la red se encuentra activa en el barrio <strong>Los Cerros – El Vergel</strong>; la cobertura vigente por barrio se publica en el mapa del sitio web.</p>
 
         <h2>3. Derechos y Deberes del Usuario</h2>
         <p>De conformidad con la <strong>Resolución CRC 5111 de 2017</strong>, los usuarios gozan, entre otros, de los siguientes derechos y deberes:</p>
@@ -122,7 +129,7 @@
           <li>Recibir un servicio de calidad, continuo e ininterrumpido, de acuerdo con las condiciones contratadas.</li>
           <li>Recibir información clara, veraz, oportuna y completa sobre las tarifas, características y condiciones del servicio.</li>
           <li>Presentar Peticiones, Quejas, Reclamaciones y Recursos (PQR) a través de los canales habilitados y recibir respuesta oportuna en un término máximo de quince (15) días hábiles.</li>
-          <li>Solicitar la terminación del contrato en cualquier momento, sin sanciones contractuales salvo las deudas pendientes o el valor no pagado de los equipos.</li>
+          <li>Solicitar la terminación del contrato en cualquier momento. En los planes residenciales no hay cláusula de permanencia ni sanción por terminación; en los planes corporativos aplica lo previsto en la sección 5 sobre permanencia mínima. En todos los casos se deben las sumas causadas y no pagadas y la devolución de los equipos.</li>
           <li>Recibir compensación por indisponibilidad del servicio en los casos normativamente previstos por la CRC.</li>
         </ol>
 
@@ -134,33 +141,48 @@
           <li>Informar oportunamente cualquier cambio en sus datos de contacto o domicilio.</li>
         </ol>
 
-        <h2>4. Régimen de Equipos (Comodato y Propiedad)</h2>
+        <h2>4. Planes, Tarifas, IVA, Instalación y Permanencia</h2>
+        <ol>
+          <li><strong>Tarifas publicadas:</strong> Las tarifas vigentes de cada plan se publican en <a href="./#planes">www.bifrostinternet.com</a>, discriminadas por segmento (residencial por estrato y corporativo), en pesos colombianos y por mes.</li>
+          <li><strong>IVA según estrato:</strong> Para usuarios residenciales de los <strong>estratos 1, 2 y 3</strong>, el servicio de acceso a Internet está excluido del Impuesto sobre las Ventas (IVA) conforme al Estatuto Tributario. Para usuarios residenciales de los <strong>estratos 4, 5 y 6</strong> y para usuarios <strong>corporativos</strong>, se aplica el IVA del diecinueve por ciento (19%), el cual se informa incluido en el precio publicado y discriminado en la factura. El estrato se acredita con un recibo de servicios públicos del inmueble donde se instala el servicio.</li>
+          <li><strong>Instalación gratuita:</strong> La instalación del servicio no tiene costo para ningún segmento, residencial ni corporativo.</li>
+          <li><strong>Planes residenciales — sin permanencia:</strong> Los planes residenciales no tienen cláusula de permanencia mínima. <strong>EL USUARIO</strong> puede terminar el contrato en cualquier momento sin penalidad.</li>
+          <li><strong>Planes corporativos — permanencia mínima de 12 meses:</strong> Los planes corporativos (Prisma Empresas y Cosmos Empresas) incluyen una cláusula de permanencia mínima de doce (12) meses, que se informa y se acepta de forma expresa antes de la firma del contrato, como contraprestación por la instalación gratuita, los equipos entregados en comodato y los servicios empresariales incluidos. Si el usuario corporativo termina el contrato antes de cumplir dicho plazo, la suma a pagar por terminación anticipada será proporcional al tiempo que falte para completar los doce (12) meses, en los términos y valores establecidos en el contrato particular. Vencido el plazo, el contrato continúa sin permanencia.</li>
+          <li><strong>Módulo de Acceso Remoto PYME:</strong> Servicio adicional para usuarios con un plan de Internet de <strong>EL PROVEEDOR</strong>, con un valor de diez mil pesos ($10.000) mensuales, que incluye hasta cinco (5) puertos personalizados (TCP/UDP) asignados, IP estática interna en el router de borde del usuario y soporte técnico prioritario para la configuración inicial. No corresponde a una dirección IP pública dedicada. La habilitación de cada puerto solicitado está sujeta a validación técnica por parte de <strong>EL PROVEEDOR</strong>: solo se habilitan puertos para servicios que permitan configurar un puerto distinto al predeterminado (por ejemplo HTTP, HTTPS, SSH o SIP), de manera que el servicio pueda operar desde la red pública sin afectar su funcionalidad. El usuario es responsable de la seguridad de los equipos y servicios que exponga a través de los puertos asignados.</li>
+          <li><strong>Velocidad:</strong> Las velocidades publicadas son simétricas (iguales de bajada y subida) y se miden por cable desde el equipo entregado por <strong>EL PROVEEDOR</strong>. La velocidad percibida por WiFi puede variar según los factores descritos en la <a href="neutralidad-red.html">Política de Neutralidad en la Red</a>.</li>
+        </ol>
+
+        <h2>5. Derecho de Retracto</h2>
+        <p>Cuando el contrato se celebre por medios no tradicionales o a distancia (sitio web, WhatsApp, teléfono), <strong>EL USUARIO</strong> podrá ejercer el derecho de retracto dentro de los cinco (5) días hábiles siguientes a la celebración del contrato, conforme al artículo 47 de la <strong>Ley 1480 de 2011</strong>, solicitándolo por cualquiera de los canales de atención. En tal caso se devolverán las sumas pagadas y se retirarán los equipos instalados.</p>
+
+        <h2>6. Régimen de Equipos (Comodato y Propiedad)</h2>
         <ol>
           <li><strong>Calidad de Comodato:</strong> Salvo pacto en contrario, los equipos finales de red (tales como ONT, Routers, Deco de TV, entre otros) requeridos para la recepción de los servicios por cableado de fibra óptica son entregados a <strong>EL USUARIO</strong> bajo la figura jurídica de <strong>COMODATO</strong> (préstamo de uso). Dichos bienes siguen siendo propiedad exclusiva de <strong>BIFRÖST NETWORK S.A.S.</strong></li>
           <li><strong>Obligación de Devolución:</strong> Al momento de la terminación del contrato por cualquier causa, <strong>EL USUARIO</strong> se obliga a restituir a <strong>EL PROVEEDOR</strong> la totalidad de los equipos entregados en perfecto estado de funcionamiento, salvo el deterioro natural por el uso legítimo.</li>
           <li><strong>Cobro Automático por No Devolución o Daño:</strong> En caso de no devolución dentro de los cinco (5) días hábiles siguientes a la finalización del servicio, o en caso de pérdida, extravío, alteración o daño imputable a negligencia del usuario, <strong>BIFRÖST NETWORK S.A.S.</strong> procederá automáticamente al cobro del valor comercial actualizado de los equipos no devueltos o averiados mediante la última factura o liquidación de cuenta.</li>
         </ol>
 
-        <h2>5. Facturación, Pagos y Suspensión del Servicio</h2>
+        <h2>7. Facturación, Pagos y Suspensión del Servicio</h2>
         <ol>
           <li><strong>Facturación y Períodos:</strong> En servicios Pospago, <strong>EL PROVEEDOR</strong> expedirá mensualmente la factura correspondiente con al menos cinco (5) días hábiles de antelación a la fecha de vencimiento. En la modalidad Prepago, el acceso al servicio estará condicionado al pago anticipado del plan seleccionado.</li>
           <li><strong>Medios de Pago Autorizados:</strong>
             <ul>
               <li>Transferencias bancarias electrónicas.</li>
-              <li>Pasarelas de pago virtuales autorizadas (<em>Bold, Mercado Pago, PayU</em>).</li>
+              <li>Llave <em>Bre-B</em>.</li>
+              <li>Pasarela de pagos virtual autorizada (<em>ePayco</em>).</li>
               <li>Pagos en efectivo en los puntos físicos habilitados.</li>
             </ul>
           </li>
           <li><strong>Mora y Suspensión:</strong> El no pago oportuno de la factura generará la suspensión del servicio por mora. Para la reconexión, <strong>EL USUARIO</strong> deberá cancelar el saldo pendiente acumulado y el costo fijado por concepto de reconexión, si aplicare conforme a la norma vigente.</li>
         </ol>
 
-        <h2>6. Modificación y Terminación del Contrato</h2>
+        <h2>8. Modificación y Terminación del Contrato</h2>
         <ul>
-          <li><strong>Terminación por el Usuario:</strong> <strong>EL USUARIO</strong> podrá solicitar la terminación del contrato en cualquier momento a través de los canales de atención de PQR con al menos tres (3) días hábiles de anticipación a la fecha de corte de su período de facturación.</li>
+          <li><strong>Terminación por el Usuario:</strong> <strong>EL USUARIO</strong> podrá solicitar la terminación del contrato en cualquier momento a través de los canales de atención de PQR con al menos tres (3) días hábiles de anticipación a la fecha de corte de su período de facturación. Para los planes corporativos aplica lo previsto sobre permanencia mínima en la sección 4.</li>
           <li><strong>Cesión del Contrato:</strong> <strong>EL USUARIO</strong> podrá ceder el contrato previa autorización expresa y verificación técnica/financiera por parte de <strong>EL PROVEEDOR</strong>.</li>
         </ul>
 
-        <h2>7. Canales de Atención al Cliente</h2>
+        <h2>9. Canales de Atención al Cliente</h2>
         <p>Para cualquier trámite, solicitud de soporte técnico, contratación o PQR, <strong>BIFRÖST NETWORK S.A.S.</strong> dispone de los siguientes canales:</p>
         <div class="legal-contact-grid">
           <div class="legal-contact-card">
@@ -192,35 +214,34 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <a href="main.html" class="brand">
-          <img class="mark mark--footer" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+        <a href="./" class="brand">
+          <img class="mark mark--footer" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S. — inicio" width="245" height="80" loading="lazy">
         </a>
-        <p>El puente de fibra óptica que conecta a Medellín con el mejor internet de Colombia.</p>
+        <p>Internet de fibra óptica simétrica en Medellín. Bifröst Network S.A.S. · NIT 902067656-1 · Carrera 15E # 45C-41, Medellín.</p>
       </div>
 
       <div class="foot-cols">
         <div class="foot-col">
-          <h5>Navegación</h5>
-          <a href="main.html#planes">Planes</a>
-          <a href="main.html#cobertura">Cobertura</a>
-          <a href="main.html#nosotros">Nosotros</a>
-          <a href="main.html#testimonios">Clientes</a>
+          <h2 class="h5">Navegación</h2>
+          <a href="./#planes">Planes</a>
+          <a href="./#cobertura">Cobertura</a>
+          <a href="internet-fibra-optica-los-cerros-medellin.html">Internet en Los Cerros</a>
+          <a href="./#instalacion">Instalación</a>
+          <a href="./#preguntas">Preguntas frecuentes</a>
+          <a href="velocidad.html">Test de velocidad</a>
         </div>
         <div class="foot-col">
-          <h5>Soporte</h5>
-          <a href="main.html#contacto">PQR</a>
-          <a href="main.html#contacto">Soporte técnico</a>
-          <a href="main.html#contacto">Nuevo servicio</a>
+          <h2 class="h5">Contacto</h2>
+          <a href="https://wa.me/573018265125" data-wa="Hola Bifröst" data-source="footer">WhatsApp</a>
+          <a href="tel:+573018265125" data-source="footer">+57 301 826 5125</a>
+          <a href="mailto:contacto@bifrostinternet.com" data-source="footer">contacto@bifrostinternet.com</a>
+          <a href="./#contacto">Soporte y PQR</a>
         </div>
         <div class="foot-col">
-          <h5>Contacto</h5>
-          <a href="tel:+573018265125">+57 301 826 5125</a>
-          <a href="mailto:contacto@bifrostinternet.com">contacto@bifrostinternet.com</a>
-        </div>
-        <div class="foot-col">
-          <h5>Normatividad</h5>
-          <a href="terminos-y-condiciones.html">Términos y Condiciones</a>
+          <h2 class="h5">Normatividad</h2>
+          <a href="terminos-y-condiciones.html" aria-current="page">Términos y Condiciones</a>
           <a href="habeas-data.html">Tratamiento de Datos</a>
+          <a href="politica-de-cookies.html">Política de Cookies</a>
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
@@ -229,15 +250,24 @@
     </div>
   </div>
 
-  <div class="foot-stripe"><span></span><span></span></div>
+  <div class="foot-stripe" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap">
     <div class="foot-bottom">
       <span>© 2026 Bifröst Network S.A.S. Todos los derechos reservados.</span>
-      <span>bifrostinternet.com</span>
+      <div class="foot-legal">
+        <a href="https://www.sic.gov.co" target="_blank" rel="noopener">Superintendencia de Industria y Comercio</a>
+        <a href="https://www.crcom.gov.co" target="_blank" rel="noopener">Comisión de Regulación de Comunicaciones</a>
+        <button type="button" class="js-cookie-settings" hidden>Configurar cookies</button>
+      </div>
     </div>
   </div>
 </footer>
 
-<script src="js/legal.js"></script>
+<a class="wa-float" href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero información sobre el internet de fibra." data-source="boton-flotante" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 8 19.4L3 21z"/><path d="M9.5 9.5c.3 1.9 2.1 3.8 4 4.2l1-1.2 2 1-.6 1.7c-3.6.2-7.3-3.4-7.2-7.1l1.7-.6 1 2-1.2 1z" fill="currentColor" stroke="none"/></svg>
+</a>
+
+
+<script src="js/main.js"></script>
 </body>
 </html>

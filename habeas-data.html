@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
 <title>Tratamiento de Datos Personales — Bifröst Network S.A.S.</title>
 <meta name="description" content="Política de Tratamiento y Protección de Datos Personales (Habeas Data) de Bifröst Network S.A.S. Ley 1581 de 2012.">
 
@@ -35,50 +36,56 @@
 <link rel="stylesheet" href="css/navigation.css">
 <link rel="stylesheet" href="css/footer.css">
 <link rel="stylesheet" href="css/legal.css">
+<link rel="stylesheet" href="css/sections.css">
+<script src="js/config.js"></script>
+<script src="js/analytics.js"></script>
 </head>
 <body>
 
-<div class="beam-progress" id="beamProgress"></div>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<div class="beam-progress" id="beamProgress" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
-<nav class="nav solid" id="nav">
+<nav class="nav solid" id="nav" aria-label="Principal">
   <div class="wrap">
-    <a href="main.html" class="brand">
-      <img class="mark" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+    <a href="./" class="brand">
+      <img class="mark" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S. — inicio" width="110" height="36">
     </a>
 
     <div class="nav-links" id="navLinks">
-      <a href="main.html#planes">Planes</a>
-      <a href="main.html#cobertura">Cobertura</a>
-      <a href="main.html#velocidad">Velocidad</a>
-      <a href="main.html#nosotros">Nosotros</a>
-      <a href="main.html#testimonios">Clientes</a>
+      <a href="./#planes">Planes</a>
+      <a href="./#cobertura">Cobertura</a>
+      <a href="./#instalacion">Instalación</a>
+      <a href="./#preguntas">Preguntas</a>
+      <a href="velocidad.html">Velocidad</a>
       <div class="nav-dropdown-wrap">
-        <button class="nav-dropdown-toggle" id="normToggle" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="nav-dropdown-toggle" id="normToggle" aria-expanded="false" aria-controls="normMenu">
           Normatividad
           <svg class="chev" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
             <path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <div class="nav-dropdown-menu" id="normMenu" role="menu">
-          <a href="terminos-y-condiciones.html" role="menuitem">Términos y Condiciones</a>
-          <a href="habeas-data.html" role="menuitem" aria-current="page">Tratamiento de Datos</a>
-          <a href="neutralidad-red.html" role="menuitem">Neutralidad en la Red</a>
-          <a href="atencion-pqr.html" role="menuitem">Atención PQR</a>
-          <a href="prevencion-pornografia-infantil.html" role="menuitem">Ley 679 de 2001</a>
+        <div class="nav-dropdown-menu" id="normMenu">
+          <a href="terminos-y-condiciones.html">Términos y Condiciones</a>
+          <a href="habeas-data.html" aria-current="page">Tratamiento de Datos</a>
+          <a href="politica-de-cookies.html">Política de Cookies</a>
+          <a href="neutralidad-red.html">Neutralidad en la Red</a>
+          <a href="atencion-pqr.html">Atención PQR</a>
+          <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
         </div>
       </div>
-      <a href="main.html#contacto" class="nav-cta">Contratar</a>
+      <a href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero contratar internet de fibra." data-source="nav" class="nav-cta">Contratar</a>
     </div>
 
-    <button class="nav-burger" id="burger" aria-label="Menú">
+    <button type="button" class="nav-burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+
 <!-- ============ CONTENIDO LEGAL ============ -->
-<main class="legal-page">
+<main class="legal-page" id="contenido">
 
   <div class="legal-hero">
     <div class="wrap">
@@ -91,7 +98,7 @@
   <div class="legal-body">
     <div class="wrap">
 
-      <a href="main.html" class="back-link">
+      <a href="./" class="back-link">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -136,11 +143,19 @@
         <ol>
           <li>Proveer formalmente los servicios contratados de Internet, Televisión y Soluciones Corporativas.</li>
           <li>Gestionar la instalación, mantenimiento preventivo/correctivo y soporte técnico de las redes de acceso FTTH.</li>
-          <li>Realizar los procesos de facturación, recaudo, cobro administrativo o judicial y gestión de medios de pago (<em>Bold, Mercado Pago, PayU, transferencias</em>).</li>
+          <li>Realizar los procesos de facturación, recaudo, cobro administrativo o judicial y gestión de medios de pago (<em>transferencias, llave Bre-B, ePayco, efectivo</em>).</li>
           <li>Tramitar peticiones, quejas, reclamos, sugerencias y recursos (PQR) ante el área de atención al usuario.</li>
           <li>Con previa autorización expresa, reportar el cumplimiento o incumplimiento de obligaciones crediticias ante Centrales de Información Financiera y Crediticia (Cifin, Datacrédito), cumpliendo el término de notificación previa legal.</li>
           <li>Enviar comunicaciones de servicio, actualizaciones técnicas, notificaciones de suspensiones programadas o promociones comerciales.</li>
+          <li>Atender las solicitudes de contratación, verificación de cobertura, lista de espera, soporte y PQR recibidas por el formulario del sitio web, WhatsApp, teléfono o correo electrónico.</li>
+          <li>Con su consentimiento, medir de forma estadística el uso del sitio web mediante herramientas de analítica (Google Analytics), según la <a href="politica-de-cookies.html">Política de Cookies</a>.</li>
         </ol>
+
+        <h3>3.1. Horarios de contacto comercial</h3>
+        <p>En cumplimiento de la <strong>Ley 2300 de 2023</strong>, <strong>BIFRÖST NETWORK S.A.S.</strong> solo realizará gestiones de contacto con fines comerciales o publicitarios por los canales que el titular haya autorizado, de lunes a viernes de 7:00 a.m. a 7:00 p.m. y sábados de 8:00 a.m. a 3:00 p.m.; nunca domingos ni festivos. Las comunicaciones propias de la prestación del servicio (fallas, mantenimientos, respuestas a PQR) pueden enviarse en cualquier momento.</p>
+
+        <h3>3.2. Autorización</h3>
+        <p>La autorización para el tratamiento se obtiene de forma previa, expresa e informada: en el contrato de servicio y, en el sitio web, mediante la casilla de aceptación del formulario de contacto, que queda registrada con la fecha y hora de la solicitud.</p>
 
         <h2>4. Derechos de los Titulares de la Información</h2>
         <p>De acuerdo con el Artículo 8 de la Ley 1581 de 2012, el titular de los datos personales tiene los siguientes derechos:</p>
@@ -180,35 +195,34 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <a href="main.html" class="brand">
-          <img class="mark mark--footer" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S.">
+        <a href="./" class="brand">
+          <img class="mark mark--footer" src="assets/svg/logo_bifrost_w.svg" alt="Bifröst Network S.A.S. — inicio" width="245" height="80" loading="lazy">
         </a>
-        <p>El puente de fibra óptica que conecta a Medellín con el mejor internet de Colombia.</p>
+        <p>Internet de fibra óptica simétrica en Medellín. Bifröst Network S.A.S. · NIT 902067656-1 · Carrera 15E # 45C-41, Medellín.</p>
       </div>
 
       <div class="foot-cols">
         <div class="foot-col">
-          <h5>Navegación</h5>
-          <a href="main.html#planes">Planes</a>
-          <a href="main.html#cobertura">Cobertura</a>
-          <a href="main.html#nosotros">Nosotros</a>
-          <a href="main.html#testimonios">Clientes</a>
+          <h2 class="h5">Navegación</h2>
+          <a href="./#planes">Planes</a>
+          <a href="./#cobertura">Cobertura</a>
+          <a href="internet-fibra-optica-los-cerros-medellin.html">Internet en Los Cerros</a>
+          <a href="./#instalacion">Instalación</a>
+          <a href="./#preguntas">Preguntas frecuentes</a>
+          <a href="velocidad.html">Test de velocidad</a>
         </div>
         <div class="foot-col">
-          <h5>Soporte</h5>
-          <a href="main.html#contacto">PQR</a>
-          <a href="main.html#contacto">Soporte técnico</a>
-          <a href="main.html#contacto">Nuevo servicio</a>
+          <h2 class="h5">Contacto</h2>
+          <a href="https://wa.me/573018265125" data-wa="Hola Bifröst" data-source="footer">WhatsApp</a>
+          <a href="tel:+573018265125" data-source="footer">+57 301 826 5125</a>
+          <a href="mailto:contacto@bifrostinternet.com" data-source="footer">contacto@bifrostinternet.com</a>
+          <a href="./#contacto">Soporte y PQR</a>
         </div>
         <div class="foot-col">
-          <h5>Contacto</h5>
-          <a href="tel:+573018265125">+57 301 826 5125</a>
-          <a href="mailto:contacto@bifrostinternet.com">contacto@bifrostinternet.com</a>
-        </div>
-        <div class="foot-col">
-          <h5>Normatividad</h5>
+          <h2 class="h5">Normatividad</h2>
           <a href="terminos-y-condiciones.html">Términos y Condiciones</a>
-          <a href="habeas-data.html">Tratamiento de Datos</a>
+          <a href="habeas-data.html" aria-current="page">Tratamiento de Datos</a>
+          <a href="politica-de-cookies.html">Política de Cookies</a>
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
@@ -217,15 +231,24 @@
     </div>
   </div>
 
-  <div class="foot-stripe"><span></span><span></span></div>
+  <div class="foot-stripe" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap">
     <div class="foot-bottom">
       <span>© 2026 Bifröst Network S.A.S. Todos los derechos reservados.</span>
-      <span>bifrostinternet.com</span>
+      <div class="foot-legal">
+        <a href="https://www.sic.gov.co" target="_blank" rel="noopener">Superintendencia de Industria y Comercio</a>
+        <a href="https://www.crcom.gov.co" target="_blank" rel="noopener">Comisión de Regulación de Comunicaciones</a>
+        <button type="button" class="js-cookie-settings" hidden>Configurar cookies</button>
+      </div>
     </div>
   </div>
 </footer>
 
-<script src="js/legal.js"></script>
+<a class="wa-float" href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero información sobre el internet de fibra." data-source="boton-flotante" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 8 19.4L3 21z"/><path d="M9.5 9.5c.3 1.9 2.1 3.8 4 4.2l1-1.2 2 1-.6 1.7c-3.6.2-7.3-3.4-7.2-7.1l1.7-.6 1 2-1.2 1z" fill="currentColor" stroke="none"/></svg>
+</a>
+
+
+<script src="js/main.js"></script>
 </body>
 </html>

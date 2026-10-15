@@ -1,5 +1,5 @@
 /* Bifröst Network — Variables de marca y reset base
-   Importado por index.html vía <link> */
+   Importado por todas las páginas vía <link> */
 
   :root{
     --blue:#0011FF;
@@ -10,7 +10,10 @@
     --paper-2:#EFEFEC;
     --white:#FFFFFF;
     --mist:#B9BDC8;
-    --mist-dim:#6c6f7a;
+    --mist-dim:#8E92A0;   /* 6.2:1 sobre --ink-2 (antes #6c6f7a, 3.9:1) */
+    --ink-soft:#5d6070;   /* texto secundario sobre fondos claros (6.2:1) */
+    --blue-on-dark:#6E7FFF; /* azul legible sobre fondos oscuros (5.6:1) */
+    --wa:#25D366;
     --line:rgba(255,255,255,0.1);
     --line-dark:rgba(0,0,0,0.08);
     --grad-beam: linear-gradient(90deg, var(--blue) 0%, #8b3fff 35%, #ff3f8b 65%, var(--orange) 100%);
@@ -40,3 +43,11 @@
 
   .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
   @media (max-width:720px){.wrap{padding:0 22px;}}
+
+  /* Accesibilidad: foco visible y enlace "saltar al contenido" */
+  :focus-visible{outline:2px solid var(--blue-on-dark); outline-offset:3px; border-radius:4px;}
+  .light :focus-visible, .plan-card :focus-visible, .contact-form :focus-visible{outline-color:var(--blue);}
+  .skip-link{position:absolute; left:16px; top:-60px; z-index:2000; background:var(--white); color:var(--ink);
+    padding:10px 16px; border-radius:10px; font-weight:600; font-size:14px; transition:top .2s;}
+  .skip-link:focus{top:12px;}
+  .visually-hidden{position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}

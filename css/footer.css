@@ -9,7 +9,7 @@
   .foot-brand .brand .mark--footer{height:80px; width:auto;}
   .foot-brand p{color:var(--mist-dim); font-size:13.5px; max-width:280px; line-height:1.6;}
   .foot-cols{display:flex; gap:64px; flex-wrap:wrap;}
-  .foot-col h5{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist-dim); margin-bottom:16px;}
+  .foot-col h5, .foot-col .h5{font-weight:600; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--mist-dim); margin-bottom:16px;}
   .foot-col a{display:block; font-size:14.5px; color:var(--mist); margin-bottom:11px; transition:color .25s;}
   .foot-col a:hover{color:var(--white);}
   .foot-stripe{height:8px; display:flex;}
@@ -19,3 +19,8 @@
     font-size:12.5px; color:var(--mist-dim); border-top:1px solid var(--line); margin-top:0;}
 
   .leaflet-popup-content{font-family:'General Sans',sans-serif; font-size:13px;}
+
+  .foot-legal{display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center;}
+  .foot-legal a, .foot-legal button{color:var(--mist); font-size:12.5px; text-decoration:underline; text-underline-offset:3px;}
+  .foot-legal a:hover, .foot-legal button:hover{color:var(--white);}
+  .foot-col a[aria-current="page"]{color:var(--white);}

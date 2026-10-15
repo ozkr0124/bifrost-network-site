@@ -1,20 +1,94 @@
 // Bifröst Network — contact-form.js
-// Maneja el envío del formulario de contacto/PQR. Actualmente es una demo (no envía a ningún backend).
-  // ---------- Formulario PQR (demo — conectar a endpoint) ----------
-  const form = document.getElementById('pqrForm');
+// Envía el formulario de contacto/PQR.
+// - Con formEndpoint en js/config.js: POST JSON al endpoint (Formspree, webhook, backend propio).
+// - Sin endpoint (o si el envío falla): abre WhatsApp con la solicitud ya redactada.
+(function () {
+  'use strict';
+
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const CFG = window.BIFROST_CONFIG || {};
+  const ENDPOINT = (CFG.formEndpoint || '').trim();
   const success = document.getElementById('formSuccess');
-  form.addEventListener('submit', function (ev) {
-    ev.preventDefault();
-    const data = Object.fromEntries(new FormData(form).entries());
-    console.log('Datos del formulario (listo para enviar a tu API):', data);
+  const successText = document.getElementById('formSuccessText');
+  const errorBox = document.getElementById('formError');
+  const submit = form.querySelector('.form-submit');
+  const tipo = document.getElementById('tipo');
+  const docField = document.getElementById('documentoField');
+  const docInput = document.getElementById('documento');
+  const emailInput = document.getElementById('email');
+  const emailOpt = document.getElementById('emailOptional');
+  const track = (n, p) => { if (window.bifrostTrack) window.bifrostTrack(n, p); };
 
-    // Cuando tengas el endpoint, reemplaza el bloque anterior por algo como:
-    // fetch('https://tu-api.bifrost.com.co/pqr', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data)
-    // }).then(...)
+  // Cédula/NIT y correo solo se piden cuando hacen falta (soporte y PQR).
+  function syncFields() {
+    const v = tipo.value;
+    const needsDoc = v === 'pqr' || v === 'soporte';
+    docField.hidden = !needsDoc;
+    docInput.required = v === 'pqr';
+    emailInput.required = v === 'pqr';
+    if (emailOpt) emailOpt.hidden = v === 'pqr';
+  }
+  tipo.addEventListener('change', syncFields);
+  syncFields();
 
-    form.style.display = 'none';
+  const LABELS = { nuevo: 'Nuevo servicio', soporte: 'Soporte técnico', pqr: 'PQR (Petición, Queja o Reclamo)', otro: 'Otro' };
+
+  function whatsappText(d) {
+    const lines = [
+      'Hola Bifröst, envío esta solicitud desde la página web:',
+      '• Tipo: ' + (LABELS[d.tipo] || d.tipo),
+      '• Nombre: ' + d.nombre,
+      '• Teléfono: ' + d.telefono,
+    ];
+    if (d.email) lines.push('• Correo: ' + d.email);
+    if (d.barrio) lines.push('• Barrio / dirección: ' + d.barrio);
+    if (d.plan) lines.push('• Plan de interés: ' + d.plan);
+    if (d.documento) lines.push('• Cédula/NIT: ' + d.documento);
+    if (d.mensaje) lines.push('• Mensaje: ' + d.mensaje);
+    return lines.join('\n');
+  }
+
+  function done(message) {
+    form.hidden = true;
+    successText.textContent = message;
     success.classList.add('show');
+    success.focus();
+  }
+
+  form.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    errorBox.classList.remove('show');
+    if (!form.reportValidity()) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.autorizacion_datos = data.autorizacion_datos ? 'Sí — ' + new Date().toISOString() : 'No';
+    data.origen = location.href;
+    track('generate_lead', { form_type: data.tipo, plan: data.plan || undefined, method: ENDPOINT ? 'formulario' : 'whatsapp' });
+
+    if (!ENDPOINT) {
+      window.open(window.bifrostWaUrl(whatsappText(data)), '_blank', 'noopener');
+      done('Abrimos WhatsApp con tu solicitud ya redactada. Solo tienes que enviarla y te respondemos en nuestro horario de atención.');
+      return;
+    }
+
+    submit.disabled = true;
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      done(data.tipo === 'pqr'
+        ? 'Recibimos tu PQR. Te enviaremos por correo el Código Único Numérico (CUN) para hacer seguimiento. El plazo máximo de respuesta es de 15 días hábiles.'
+        : 'Recibimos tu solicitud. Te contactaremos por WhatsApp o teléfono en nuestro horario de atención (lunes a viernes, 8:00–12:00 y 13:00–17:00).');
+    } catch (err) {
+      submit.disabled = false;
+      const link = errorBox.querySelector('a');
+      if (link) link.href = window.bifrostWaUrl(whatsappText(data));
+      errorBox.classList.add('show');
+    }
   });
+})();

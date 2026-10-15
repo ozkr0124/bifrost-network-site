@@ -24,12 +24,12 @@
     font-size:15px; font-weight:600; margin-top:6px; transition:background .3s, transform .3s;
     display:flex; align-items:center; justify-content:center; gap:10px;}
   .form-submit:hover{background:var(--blue); transform:translateY(-2px);}
-  .form-note{font-size:12px; color:#8a8a92; margin-top:14px; text-align:center;}
+  .form-note{font-size:12.5px; color:#5d6070; margin-top:14px; text-align:center;}
   .form-success{display:none; text-align:center; padding:40px 20px;}
   .form-success.show{display:block;}
   .form-success .check{width:56px; height:56px; border-radius:50%; background:var(--blue); color:#fff;
     display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:26px;}
-  .form-success h4{font-size:20px; font-weight:700;}
+  .form-success h3, .form-success h4{font-size:20px; font-weight:700;}
   .form-success p{margin-top:8px; color:#6a6a72; font-size:14px;}
 
   .contact-side{display:flex; flex-direction:column; gap:16px;}
@@ -42,3 +42,23 @@
   .side-card .val{font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:600; margin-top:10px;}
   .side-card.accent{background:var(--blue); border-color:transparent;}
   .side-card.accent2{background:var(--orange); border-color:transparent;}
+
+  /* ---------- Mejoras de accesibilidad y conversión ---------- */
+  .side-card.accent2 h4, .side-card.accent2 .val{color:var(--ink);}   /* texto tinta sobre naranja (6.2:1) */
+  .side-card.accent h4{color:rgba(255,255,255,0.85);}
+  a.side-card{transition:transform .3s var(--ease);}
+  a.side-card:hover{transform:translateY(-3px);}
+  .side-card.wa-card{background:var(--wa); border-color:transparent; color:var(--ink);}
+  .side-card.wa-card h4{color:var(--ink);}
+  .side-card .go{font-size:13.5px; font-weight:600; margin-top:12px;}
+  .field .hint{font-size:12.5px; color:#5d6070; margin-top:6px;}
+  .field .optional{font-weight:500; color:#5d6070;}
+  .field[hidden]{display:none;}
+  .consent{display:flex; gap:12px; align-items:flex-start; margin:6px 0 16px; font-size:13.5px; line-height:1.5; color:#3d3d45;}
+  .consent input{width:20px; height:20px; margin-top:1px; flex-shrink:0; accent-color:var(--blue);}
+  .consent a{color:var(--blue); text-decoration:underline; text-underline-offset:2px;}
+  .form-error{display:none; margin-top:12px; font-size:14px; color:#B42318; text-align:center;}
+  .form-error.show{display:block;}
+  .form-success p a{color:var(--blue); text-decoration:underline;}
+  .form-submit[disabled]{opacity:.6; cursor:progress;}
+  .form-note{color:#5d6070;}

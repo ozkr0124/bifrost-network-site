@@ -72,7 +72,9 @@ Simplemente abre `index.html` en el navegador (doble clic), o súbelo completo (
 
 ## Cobertura (mapa)
 
-`js/coverage-data.js` contiene los 20 barrios reales que compartiste, con **Los Cerros - El Vergel** marcado como `"status": "active"` y el resto como `"planned"`. Para activar un nuevo barrio, cambia su `status` a `"active"` dentro de ese archivo.
+`js/coverage-data.js` contiene los 20 barrios reales que compartiste, con **Los Cerros - El Vergel** marcado como `"status": "active"` y el resto como `"planned"`. Para activar un nuevo barrio, cambia su `status` a `"active"` dentro de ese archivo **y también en `js/coverage-zones.js`** (la lista liviana que usa el verificador "¿Llega a mi casa?").
+
+El mapa se carga de forma diferida (solo cuando el visitante llega a la sección) y usa mosaicos de OpenStreetMap con un filtro oscuro (CARTO dejó de servir mosaicos sin API key).
 
 **Zoom automático:** `js/map.js` encuadra el mapa sobre la **unión de todas** las zonas marcadas como `"active"` (no solo la primera), con 35% de margen alrededor y un tope de zoom de nivel 16 (para que no se acerque demasiado si el polígono es muy pequeño). Si quieres más o menos "aire" alrededor de las zonas activas, ajusta el `0.35` en `activeBounds.pad(0.35)` — más alto aleja la cámara, más bajo la acerca.
 
@@ -98,9 +100,45 @@ Para bajarlo: `docker compose down`.
 > servidor real de producción (ese despliega solo el backend, para ponerlo detrás de tu nginx
 > real con tu dominio — ver `speedtest-backend/README.md`).
 
-## Formulario de contacto
+## Integraciones — todo se configura en `js/config.js`
 
-`js/contact-form.js` captura los datos del formulario PQR y los muestra en consola (`console.log`). Dentro del archivo hay un bloque comentado con el `fetch()` listo para que lo actives apuntando a tu endpoint cuando esté disponible.
+Las integraciones viven en un solo archivo, `js/config.js`. Si un valor queda vacío, esa función se desactiva sin romper nada.
+
+### 1. Google Analytics 4 (`gaMeasurementId`)
+
+1. Entra a <https://analytics.google.com> → **Administrar → Crear → Propiedad** (zona horaria Colombia, moneda COP).
+2. Crea un **flujo de datos Web** con `https://www.bifrostinternet.com`.
+3. Copia el **ID de medición** (`G-XXXXXXXXXX`) en `gaMeasurementId`.
+4. En **Administrar → Eventos**, marca como **eventos clave** (conversiones): `generate_lead` y `whatsapp_click`.
+5. Opcional: en **Administrar → Definiciones personalizadas** crea dimensiones de evento para `source`, `plan`, `segment`, `barrio` y `result`.
+
+Eventos que envía el sitio: `whatsapp_click`, `phone_click`, `email_click`, `generate_lead`, `coverage_check`, `select_plan_segment`, `faq_open`.
+Funciona con **Consent Mode v2**: hasta que el visitante acepta en el banner, GA no guarda cookies.
+
+### 2. Google Search Console (indexación)
+
+1. Entra a <https://search.google.com/search-console> → **Agregar propiedad → Dominio** → `bifrostinternet.com`.
+2. Verifica con el registro **TXT** que te da Google en el DNS de tu dominio.
+3. En **Sitemaps**, envía `https://www.bifrostinternet.com/sitemap.xml`.
+4. En **Inspección de URLs**, inspecciona `https://www.bifrostinternet.com/` y pulsa **Solicitar indexación**.
+
+### 3. Formulario de contacto (`formEndpoint`)
+
+Sin endpoint, el formulario abre WhatsApp con la solicitud ya redactada (no se pierde ninguna). Para recibirlas también por correo o en tu CRM, pon en `formEndpoint` la URL de un servicio que acepte POST con JSON, por ejemplo **Formspree** (<https://formspree.io>, crea un formulario y copia la URL `https://formspree.io/f/xxxx`) o un webhook de n8n/Make/Zapier. Las PQR deben recibir su **CUN**: genera el código en tu sistema y envíalo al usuario al responder.
+
+### 4. Reseñas de Google en "Clientes" (`googleMapsApiKey` + `googlePlaceId`)
+
+La sección **Clientes** está oculta y se muestra sola cuando la ficha de Google tiene reseñas con texto.
+
+1. **Google Business Profile** verificado para Bifröst Network (<https://business.google.com>), con la dirección Carrera 15E # 45C-41.
+2. **Place ID**: búscalo en <https://developers.google.com/maps/documentation/places/web-service/place-id> y cópialo en `googlePlaceId` (empieza por `ChIJ…`).
+3. **Google Cloud** (<https://console.cloud.google.com>): crea un proyecto, activa la **facturación** (hay un crédito mensual gratuito que cubre el tráfico de un sitio como este) y habilita **Maps JavaScript API** y **Places API (New)**.
+4. **Credenciales → Crear clave de API**, y restríngela:
+   - *Restricción de aplicación*: **Sitios web (referentes HTTP)** → `https://www.bifrostinternet.com/*`, `https://bifrostinternet.com/*` y, para probar en local, `http://localhost:5500/*`.
+   - *Restricción de API*: solo **Maps JavaScript API** y **Places API (New)**.
+5. Pega la clave en `googleMapsApiKey`. La clave queda visible en el código del sitio (así funciona Maps en el navegador); por eso las restricciones del paso 4 son obligatorias.
+
+Google entrega como máximo las 5 reseñas más relevantes; se muestran tal cual, con autor y enlace a la ficha, como piden sus políticas.
 
 ## Medidor de velocidad (sección "Velocidad")
 
