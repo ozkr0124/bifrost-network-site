@@ -33,6 +33,70 @@
   tipo.addEventListener('change', syncFields);
   syncFields();
 
+  // ---------- Validación accesible: el error aparece junto a cada campo y el lector de pantalla lo lee ----------
+  const MESSAGES = {
+    nombre: () => 'Escribe tu nombre completo.',
+    telefono: (el) => (el.value.trim() ? 'Revisa el número: debe tener al menos 7 dígitos.' : 'Escribe tu número de celular o WhatsApp.'),
+    barrio: () => 'Escribe tu barrio y dirección.',
+    email: (el) => (el.value.trim() ? 'Revisa el correo; debe tener el formato nombre@dominio.com.' : 'Escribe tu correo: ahí te enviaremos el código (CUN) de tu PQR.'),
+    documento: () => 'Escribe la cédula o el NIT del titular del servicio.',
+    autorizacion: () => 'Para enviar la solicitud debes autorizar el tratamiento de tus datos.',
+  };
+
+  function errorFor(el) {
+    const id = el.id + '-error';
+    let msg = document.getElementById(id);
+    if (!msg) {
+      msg = document.createElement('p');
+      msg.className = 'field-error';
+      msg.id = id;
+      const anchor = el.type === 'checkbox' ? el.closest('.consent') : el.closest('.field');
+      anchor.insertAdjacentElement(el.type === 'checkbox' ? 'afterend' : 'beforeend', msg);
+    }
+    return msg;
+  }
+
+  function setError(el, text) {
+    const msg = errorFor(el);
+    msg.textContent = text || '';
+    msg.hidden = !text;
+    const ids = (el.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== msg.id);
+    if (text) { ids.push(msg.id); el.setAttribute('aria-invalid', 'true'); }
+    else el.removeAttribute('aria-invalid');
+    if (ids.length) el.setAttribute('aria-describedby', ids.join(' ')); else el.removeAttribute('aria-describedby');
+  }
+
+  function fieldInvalid(el) {
+    if (el.closest('[hidden]')) return false;
+    if (el.id === 'telefono' && el.value.trim() && el.value.replace(/\D/g, '').length < 7) return true;
+    return !el.checkValidity();
+  }
+
+  function validate() {
+    let first = null;
+    Object.keys(MESSAGES).forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const bad = fieldInvalid(el);
+      setError(el, bad ? MESSAGES[id](el) : '');
+      if (bad && !first) first = el;
+    });
+    if (first) first.focus();
+    return !first;
+  }
+
+  // Al corregir un campo, su error desaparece
+  Object.keys(MESSAGES).forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', () => {
+      if (el.getAttribute('aria-invalid') === 'true' && !fieldInvalid(el)) setError(el, '');
+    });
+  });
+  tipo.addEventListener('change', () => {
+    ['documento', 'email'].forEach((id) => { const el = document.getElementById(id); if (el) setError(el, ''); });
+  });
+
   const LABELS = { nuevo: 'Nuevo servicio', soporte: 'Soporte técnico', pqr: 'PQR (Petición, Queja o Reclamo)', otro: 'Otro' };
 
   function whatsappText(d) {
@@ -60,7 +124,7 @@
   form.addEventListener('submit', async function (ev) {
     ev.preventDefault();
     errorBox.classList.remove('show');
-    if (!form.reportValidity()) return;
+    if (!validate()) return;
 
     const data = Object.fromEntries(new FormData(form).entries());
     data.autorizacion_datos = data.autorizacion_datos ? 'Sí — ' + new Date().toISOString() : 'No';

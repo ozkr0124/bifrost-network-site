@@ -31,6 +31,7 @@
     transition:transform .3s var(--ease), background .3s;
   }
   .nav-cta:hover{transform:translateY(-2px); background:var(--blue);}
+  .nav-links a.nav-cta, .nav-links a.nav-cta:hover{color:var(--white);}  /* blanco sobre azul: 8.3:1 */
   .nav-burger{display:none;}
 
   /* ---------- Dropdown Normatividad ---------- */
@@ -54,11 +55,11 @@
       padding:8px; min-width:230px; z-index:910;
       box-shadow:0 16px 40px rgba(0,0,0,.5);
       display:flex; flex-direction:column; gap:2px;
-      opacity:0; pointer-events:none;
-      transition:opacity .2s var(--ease), transform .2s var(--ease);
+      opacity:0; pointer-events:none; visibility:hidden;
+      transition:opacity .2s var(--ease), transform .2s var(--ease), visibility 0s linear .2s;
     }
     .nav-dropdown-menu.open{
-      opacity:1; pointer-events:auto;
+      opacity:1; pointer-events:auto; visibility:visible; transition:opacity .2s var(--ease), transform .2s var(--ease), visibility 0s;
       transform:translateX(-50%) translateY(0);
     }
     .nav-dropdown-menu a{
@@ -73,9 +74,9 @@
   @media (max-width: 880px){
     .nav-links{position:fixed; top:0; right:0; height:100vh; width:78%; max-width:340px;
       background:var(--ink-2); flex-direction:column; align-items:flex-start; justify-content:center;
-      gap:26px; padding:40px; transform:translateX(100%); transition:transform .5s var(--ease);
-      border-left:1px solid var(--line);}
-    .nav-links.open{transform:translateX(0);}
+      gap:26px; padding:40px; transform:translateX(100%); transition:transform .5s var(--ease), visibility 0s linear .5s;
+      border-left:1px solid var(--line); visibility:hidden; overflow-y:auto;}
+    .nav-links.open{transform:translateX(0); visibility:visible; transition:transform .5s var(--ease), visibility 0s;}
     .nav-links a{font-size:20px;}
     .nav-cta{margin-top:10px;}
     .nav-burger{display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; padding:0 9px; margin-right:-9px; z-index:950;}
@@ -91,10 +92,10 @@
       display:flex; flex-direction:column; gap:14px;
       padding-left:18px; margin-top:12px;
       max-height:0; overflow:hidden;
-      opacity:0; pointer-events:none;
-      transition:max-height .35s var(--ease), opacity .3s;
+      opacity:0; pointer-events:none; visibility:hidden;
+      transition:max-height .35s var(--ease), opacity .3s, visibility 0s linear .35s;
     }
-    .nav-dropdown-menu.open{max-height:300px; opacity:1; pointer-events:auto;}
+    .nav-dropdown-menu.open{max-height:340px; opacity:1; pointer-events:auto; visibility:visible; transition:max-height .35s var(--ease), opacity .3s, visibility 0s;}
     .nav-dropdown-menu a{font-size:16px; color:var(--mist);}
     .nav-dropdown-menu a:hover{color:var(--white);}
   }

@@ -62,3 +62,9 @@
   .form-success p a{color:var(--blue); text-decoration:underline;}
   .form-submit[disabled]{opacity:.6; cursor:progress;}
   .form-note{color:#5d6070;}
+  .form-intro{font-size:13px; color:#5d6070; margin-bottom:18px;}
+  .field-error{margin-top:6px; font-size:13px; font-weight:600; color:#B42318; display:flex; gap:6px; align-items:flex-start;}
+  .field-error::before{content:'!'; flex-shrink:0; width:16px; height:16px; border-radius:50%; background:#B42318; color:#fff;
+    font-size:11px; line-height:16px; text-align:center; margin-top:1px;}
+  .field-error[hidden]{display:none;}
+  .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"]{border-color:#B42318; border-width:2px;}

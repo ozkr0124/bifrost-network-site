@@ -97,12 +97,12 @@
 .legal-content em { font-style: italic; color: var(--mist); }
 
 .legal-content a {
-  color: var(--blue);
+  color: var(--blue-on-dark);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color .2s;
 }
-.legal-content a:hover { color: #5577ff; }
+.legal-content a:hover { color: #9aa6ff; }
 
 /* ---------- Tarjetas de contacto ---------- */
 .legal-contact-grid {
@@ -117,7 +117,7 @@
   border-radius: 12px;
   padding: 18px 20px;
 }
-.legal-contact-card h4 {
+.legal-contact-card h3, .legal-contact-card h4 {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
   letter-spacing: .1em;
@@ -213,3 +213,16 @@
   .legal-content h2 { margin-top: 40px; padding-top: 40px; }
   .back-link { margin-bottom: 36px; }
 }
+
+/* ---------- Resumen en lenguaje claro ---------- */
+.legal-summary {
+  background: rgba(110,127,255,.10);
+  border: 1px solid rgba(110,127,255,.35);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin: 0 0 40px;
+}
+.legal-content .legal-summary h2 { margin-top: 0; padding-top: 0; border-top: none; font-size: 20px; }
+.legal-summary ul { margin: 12px 0 0; padding-left: 20px; }
+.legal-summary li { margin-bottom: 8px; font-size: 16px; line-height: 1.55; }
+.legal-summary p { margin: 12px 0 0; font-size: 13.5px; color: var(--mist); }

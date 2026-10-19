@@ -1,35 +1,14 @@
 // Bifröst Network — reviews.js
-// Muestra las reseñas reales de tu ficha de Google Business Profile en la sección "Clientes".
-// - Necesita googleMapsApiKey y googlePlaceId en js/config.js (ver README → Reseñas de Google).
-// - Si falta configuración, hay un error o la ficha aún no tiene reseñas, la sección sigue oculta.
-// - Google devuelve como máximo 5 reseñas por consulta; se muestran tal cual (sin filtrar),
-//   con el nombre del autor y el enlace a la ficha, como exigen las políticas de Google.
+// Muestra las reseñas reales de la ficha de Google Business Profile en la sección "Clientes".
+// - Las obtiene de tu backend propio (reviews-backend/), configurado en js/config.js → reviewsApiUrl.
+// - Si no hay URL, el backend no responde o aún no hay reseñas con texto, la sección sigue oculta.
 (function () {
   'use strict';
 
   const CFG = window.BIFROST_CONFIG || {};
-  const KEY = (CFG.googleMapsApiKey || '').trim();
-  const PLACE_ID = (CFG.googlePlaceId || '').trim();
+  const API = (CFG.reviewsApiUrl || '').trim();
   const section = document.getElementById('testimonios');
-  if (!section || !KEY || !PLACE_ID) return;
-
-  function loadMaps() {
-    return new Promise((resolve, reject) => {
-      if (window.google && window.google.maps && window.google.maps.importLibrary) return resolve();
-      window.__bifrostMapsReady = resolve;
-      const s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(KEY) +
-        '&v=weekly&language=es&region=CO&loading=async&callback=__bifrostMapsReady';
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
-  }
-
-  function stars(n) {
-    const full = Math.round(n || 0);
-    return '★★★★★'.slice(0, full) + '☆☆☆☆☆'.slice(0, 5 - full);
-  }
+  if (!section || !API) return;
 
   function el(tag, cls, text) {
     const n = document.createElement(tag);
@@ -39,80 +18,87 @@
   }
 
   function starsEl(rating) {
-    const s = el('div', 'stars', stars(rating));
+    const full = Math.max(0, Math.min(5, Math.round(rating || 0)));
+    const s = el('div', 'stars', '★★★★★'.slice(0, full) + '☆☆☆☆☆'.slice(0, 5 - full));
     s.setAttribute('role', 'img');
-    s.setAttribute('aria-label', (Math.round(rating * 10) / 10) + ' de 5 estrellas');
+    s.setAttribute('aria-label', (Math.round((rating || 0) * 10) / 10).toString().replace('.', ',') + ' de 5 estrellas');
     return s;
   }
 
-  function textOf(t) {
-    if (!t) return '';
-    return typeof t === 'string' ? t : (t.text || '');
+  function relativeDate(iso) {
+    if (!iso) return '';
+    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (isNaN(days)) return '';
+    if (days < 1) return 'hoy';
+    if (days < 30) return 'hace ' + days + (days === 1 ? ' día' : ' días');
+    const months = Math.floor(days / 30);
+    if (months < 12) return 'hace ' + months + (months === 1 ? ' mes' : ' meses');
+    const years = Math.floor(months / 12);
+    return 'hace ' + years + (years === 1 ? ' año' : ' años');
+  }
+
+  function link(text, href) {
+    const a = el('a', '', text);
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    return a;
   }
 
   async function run() {
     try {
-      await loadMaps();
-      const { Place } = await google.maps.importLibrary('places');
-      const place = new Place({ id: PLACE_ID, requestedLanguage: 'es' });
-      await place.fetchFields({ fields: ['displayName', 'rating', 'userRatingCount', 'reviews', 'googleMapsURI'] });
-      const reviews = (place.reviews || []).filter((r) => textOf(r.text).trim());
+      const res = await fetch(API, { headers: { Accept: 'application/json' } });
+      if (!res.ok) return;
+      const data = await res.json();
+      const reviews = (data.reviews || []).filter((r) => (r.text || '').trim());
       if (!reviews.length) return;
 
       const summary = document.getElementById('reviewsSummary');
       const track = document.getElementById('reviewsTrack');
 
-      if (place.rating) {
+      if (data.rating) {
         const meta = el('div', 'meta');
-        meta.append((place.userRatingCount || reviews.length) + ' reseñas en Google · ');
-        const link = el('a', '', 'Ver todas en Google Maps');
-        link.href = place.googleMapsURI;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        meta.append(link);
-        summary.append(el('div', 'score', place.rating.toFixed(1)), starsEl(place.rating), meta);
+        meta.append((data.total || reviews.length) + ' reseñas en Google');
+        if (data.mapsUri) meta.append(' · ', link('Ver todas en Google Maps', data.mapsUri));
+        if (data.newReviewUri) meta.append(' · ', link('Escribe tu reseña', data.newReviewUri));
+        summary.append(el('div', 'score', Number(data.rating).toFixed(1).replace('.', ',')), starsEl(data.rating), meta);
       }
 
       reviews.forEach((r) => {
         const card = el('article', 'review-card');
-        card.append(starsEl(r.rating || 0));
-        card.append(el('p', '', textOf(r.text)));
+        card.append(starsEl(r.rating), el('p', '', r.text));
+        if (r.reply) {
+          const reply = el('div', 'review-reply');
+          reply.append(el('b', '', 'Respuesta de Bifröst'), el('span', '', r.reply));
+          card.append(reply);
+        }
         const who = el('div', 'who');
-        const author = r.authorAttribution || {};
-        if (author.photoURI) {
+        if (r.photo) {
           const img = el('img');
-          img.src = author.photoURI;
+          img.src = r.photo;
           img.alt = '';
           img.loading = 'lazy';
           img.referrerPolicy = 'no-referrer';
+          img.width = 38;
+          img.height = 38;
           who.append(img);
         }
         const info = el('div');
-        const name = el('b');
-        if (author.uri) {
-          const a = el('a', '', author.displayName || 'Usuario de Google');
-          a.href = author.uri;
-          a.target = '_blank';
-          a.rel = 'noopener';
-          name.append(a);
-        } else {
-          name.textContent = author.displayName || 'Usuario de Google';
-        }
-        info.append(name, el('span', '', r.relativePublishTimeDescription || ''));
+        info.append(el('b', '', r.author || 'Usuario de Google'), el('span', '', relativeDate(r.createTime)));
         who.append(info);
         card.append(who);
         track.append(card);
       });
 
       section.hidden = false;
-      document.querySelectorAll('.js-reviews-link').forEach((a) => { a.hidden = false; });
+      if (window.bifrostMarkNewTab) window.bifrostMarkNewTab(section);
     } catch (e) {
-      // Sin reseñas visibles ante cualquier error: la página sigue funcionando igual.
-      if (window.console) console.warn('Reseñas de Google no disponibles:', e);
+      // Ante cualquier error la sección sigue oculta y el resto de la página funciona igual.
+      if (window.console) console.warn('Reseñas no disponibles:', e.message);
     }
   }
 
-  // Se consulta solo cuando el visitante se acerca a la sección (ahorra cuota de la API).
+  // Se consulta solo cuando el visitante se acerca a la sección.
   const trigger = document.getElementById('reviewsTrigger') || section;
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {

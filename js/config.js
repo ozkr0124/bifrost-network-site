@@ -18,10 +18,8 @@ window.BIFROST_CONFIG = {
   // Vacío = el formulario abre WhatsApp con la solicitud ya redactada (no se pierde nada).
   formEndpoint: '',
 
-  // Reseñas de Google (Google Business Profile).
-  // googleMapsApiKey: clave de Google Cloud restringida a tu dominio (ver README).
-  // googlePlaceId: el Place ID de tu ficha de Google Business (empieza por "ChIJ...").
-  // Si falta cualquiera de los dos, o la ficha no tiene reseñas, la sección queda oculta.
-  googleMapsApiKey: '',
-  googlePlaceId: '',
+  // Reseñas de Google Business Profile, servidas por tu backend propio (carpeta reviews-backend/).
+  // URL pública del endpoint /reviews, por ejemplo: 'https://reviews.bifrostinternet.com/reviews'.
+  // Vacío, sin reseñas o con el backend caído = la sección "Clientes" queda oculta.
+  reviewsApiUrl: '',
 };

@@ -36,3 +36,7 @@
   .section-head h2{font-size:clamp(30px,4.2vw,50px); font-weight:800; letter-spacing:-0.025em; line-height:1.08;}
   .section-head p{margin-top:18px; font-size:17px; color:var(--mist); font-weight:500; line-height:1.55;}
   .light .section-head p{color:#57575f;}
+
+  /* Secciones claras sin la clase .light (velocidad, instalación): textos con contraste suficiente */
+  .speedtest .eyebrow, .steps .eyebrow{color:var(--blue);}
+  .speedtest .section-head p, .steps .section-head p{color:#57575f;}

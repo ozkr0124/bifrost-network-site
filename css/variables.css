@@ -17,12 +17,14 @@
     --line:rgba(255,255,255,0.1);
     --line-dark:rgba(0,0,0,0.08);
     --grad-beam: linear-gradient(90deg, var(--blue) 0%, #8b3fff 35%, #ff3f8b 65%, var(--orange) 100%);
+    /* Degradado para TEXTO sobre fondo oscuro: cada tono supera 4.5:1 (el azul #0011FF solo da 2.5:1) */
+    --grad-text: linear-gradient(90deg, #6E7FFF 0%, #A070FF 35%, #ff5c9c 65%, var(--orange) 100%);
     --ease: cubic-bezier(.16,1,.3,1);
     --ease-soft: cubic-bezier(.22,.61,.36,1);
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{overflow-x:clip; scroll-behavior:smooth; scroll-padding-top:96px; scroll-padding-bottom:96px;} /* el foco y los anclas no quedan tapados por el nav fijo ni el botón de WhatsApp */
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
@@ -51,3 +53,5 @@
     padding:10px 16px; border-radius:10px; font-weight:600; font-size:14px; transition:top .2s;}
   .skip-link:focus{top:12px;}
   .visually-hidden{position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+  /* Destino de "Saltar al contenido": recibe el foco sin mostrar un marco alrededor de toda la página */
+  main[tabindex="-1"]:focus{outline:none;}

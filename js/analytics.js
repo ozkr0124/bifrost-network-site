@@ -46,8 +46,11 @@
     window.gtag('consent', 'update', { analytics_storage: value });
   }
 
-  function showBanner() {
+  function showBanner(ev) {
     if (document.getElementById('cookieBanner')) return;
+    // Si se abrió desde el botón "Configurar cookies", el foco vuelve a ese botón al cerrar.
+    const opener = ev && ev.currentTarget && ev.currentTarget.focus ? ev.currentTarget : null;
+    const close = () => { box.remove(); if (opener) opener.focus(); };
     const box = document.createElement('div');
     box.className = 'cookie-banner';
     box.id = 'cookieBanner';
@@ -71,12 +74,16 @@
     reject.type = 'button';
     reject.className = 'reject';
     reject.textContent = 'Solo necesarias';
-    accept.addEventListener('click', () => { save('granted'); box.remove(); });
-    reject.addEventListener('click', () => { save('denied'); box.remove(); });
+    accept.addEventListener('click', () => { save('granted'); close(); });
+    reject.addEventListener('click', () => { save('denied'); close(); });
     actions.append(accept, reject);
 
     box.append(p, actions);
-    document.body.appendChild(box);
+    // Se inserta al inicio del documento (después de "Saltar al contenido") para que quien navega con
+    // teclado o lector de pantalla lo encuentre primero, sin robarle el foco.
+    const skip = document.querySelector('.skip-link');
+    if (skip) skip.insertAdjacentElement('afterend', box); else document.body.prepend(box);
+    if (opener) accept.focus();
   }
 
   // Botón "Configurar cookies" del footer
@@ -87,7 +94,7 @@
       b.hidden = false;
       b.addEventListener('click', showBanner);
     });
-    if (stored !== 'granted' && stored !== 'denied') showBanner();
+    if (stored !== 'granted' && stored !== 'denied') showBanner(null);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

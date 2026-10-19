@@ -10,7 +10,7 @@
   .coverage-info p{margin-top:16px; color:var(--mist); font-size:15px; line-height:1.6;}
   .coverage-stats{margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:22px;}
   .coverage-stats .stat b{font-family:'IBM Plex Mono',monospace; font-size:30px; font-weight:600; display:block;
-    background:var(--grad-beam); -webkit-background-clip:text; background-clip:text; color:transparent;}
+    background:var(--grad-text); -webkit-background-clip:text; background-clip:text; color:transparent;}
   .coverage-stats .stat span{font-size:12.5px; color:var(--mist-dim); letter-spacing:.02em;}
   #map{height:440px; width:100%;}
   /* Mapa OSM en tono oscuro: el filtro solo afecta los mosaicos, no los polígonos de cobertura */
@@ -27,3 +27,15 @@
   .barrio-popup .tag{display:inline-block; margin-top:6px; font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:100px; letter-spacing:.03em;}
   .barrio-popup .tag.active{background:rgba(0,17,255,0.12); color:#0011FF;}
   .barrio-popup .tag.planned{background:rgba(0,0,0,0.06); color:#6a6a72;}
+
+  /* Alternativa en texto al mapa: lista de barrios */
+  .zone-list{margin-top:20px; border:1px solid var(--line); border-radius:18px; padding:6px 24px; background:var(--ink-2);}
+  .zone-list[open]{padding-bottom:22px;}
+  .zone-list summary{cursor:pointer; min-height:44px; display:flex; align-items:center; font-size:15px; font-weight:600; color:var(--white);}
+  .zone-list summary:hover{text-decoration:underline; text-underline-offset:3px;}
+  .zone-list h4{margin-top:14px; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--mist);}
+  .zone-list ul{list-style:none; margin-top:8px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px 16px;}
+  @media (max-width:900px){.zone-list ul{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:480px){.zone-list ul{grid-template-columns:1fr;}}
+  .zone-list li{font-size:14.5px; color:var(--mist);}
+  .zone-list li.active{color:var(--white); font-weight:600;}

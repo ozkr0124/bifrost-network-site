@@ -21,7 +21,10 @@
   };
 
   function selectEngine(engine, persist) {
-    engineButtons.forEach((b) => b.classList.toggle('active', b.dataset.engine === engine));
+    engineButtons.forEach((b) => {
+      b.classList.toggle('active', b.dataset.engine === engine);
+      b.setAttribute('aria-pressed', String(b.dataset.engine === engine));
+    });
     Object.entries(panels).forEach(([key, el]) => {
       if (el) el.classList.toggle('active', key === engine);
     });
@@ -50,7 +53,7 @@
       panels.librespeed.innerHTML =
         '<div class="st-card">' +
           '<div class="ookla-badge"><span class="dot"></span>LibreSpeed</div>' +
-          '<h3>Test no disponible en Safari</h3>' +
+          '<h2>Test no disponible en Safari</h2>' +
           '<p>Las restricciones de WebKit impiden medir velocidades superiores a 400 Mbps con precisión en este navegador. Obtén resultados exactos con Chrome.</p>' +
           '<a href="https://www.google.com/chrome/" target="_blank" rel="noopener" class="ookla-open-btn">Descargar Chrome ↗</a>' +
         '</div>';
@@ -66,6 +69,8 @@
   // Importante: NO se llama tunnel.start() aquí. Al cargar la página solo se dibuja un
   // frame estático de reposo (sin loop de animación) — el túnel solo "cobra vida" cuando
   // el usuario da clic en "Iniciar prueba de velocidad" (ver runTest más abajo).
+  // Con "reducir movimiento" activado en el sistema, el túnel no se anima (solo se dibujan cuadros estáticos).
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const tunnelCanvas = document.getElementById('tunnelCanvas');
   const tunnel = tunnelCanvas ? new BifrostTunnel(tunnelCanvas) : null;
   if (tunnel) { tunnel.setIdle(); tunnel.drawStaticFrame(); }
@@ -80,7 +85,16 @@
     ul: document.getElementById('statUpload'),
     ip: document.getElementById('statIp'),
     startBtn: document.getElementById('startTestBtn'),
+    announce: document.getElementById('stAnnounce'),
   };
+
+  // Anuncios para lectores de pantalla: solo cambios de fase y resultados, no cada actualización
+  let lastAnnounced = '';
+  function announce(text) {
+    if (!els.announce || !text || text === lastAnnounced) return;
+    lastAnnounced = text;
+    els.announce.textContent = text;
+  }
 
   function resetStats() {
     [els.ping, els.jitter, els.dl, els.ul].forEach((el) => { if (el) el.textContent = '--'; });
@@ -139,6 +153,8 @@
 
     speedtest.onupdate = function (data) {
       if (els.phase) els.phase.textContent = PHASE_LABELS[data.testState] || '';
+      if (data.testState >= 0 && data.testState <= 3) announce(PHASE_LABELS[data.testState]);
+      if (reduceMotion && tunnel) tunnel.drawStaticFrame();
 
       if (els.ping) els.ping.textContent = data.pingStatus ? Number(data.pingStatus).toFixed(0) : '--';
       if (els.jitter) els.jitter.textContent = data.jitterStatus ? Number(data.jitterStatus).toFixed(0) : '--';
@@ -179,6 +195,13 @@
       }
       if (tunnel) { tunnel.setIdle(); tunnel.stop(); tunnel.drawStaticFrame(); }
       if (els.phase) els.phase.textContent = aborted ? 'Prueba cancelada' : 'Prueba finalizada';
+      if (aborted) {
+        announce('Prueba cancelada.');
+      } else {
+        const t = (el) => (el && el.textContent && el.textContent !== '--' ? el.textContent : 'sin dato');
+        announce('Prueba finalizada. Descarga: ' + t(els.dl) + ' megabits por segundo. Subida: ' + t(els.ul) +
+          ' megabits por segundo. Ping: ' + t(els.ping) + ' milisegundos. Jitter: ' + t(els.jitter) + ' milisegundos.');
+      }
     };
 
     return speedtest;
@@ -226,6 +249,7 @@
     checkBackendReachable().then((ok) => {
       if (!ok) {
         if (els.phase) els.phase.textContent = 'El servidor de medición no está disponible en este momento.';
+        announce('El servidor de medición no está disponible en este momento.');
         if (els.startBtn) {
           els.startBtn.disabled = false;
           els.startBtn.classList.remove('testing');
@@ -235,7 +259,7 @@
       }
 
       const st = ensureSpeedtestInstance();
-      if (tunnel) tunnel.start();
+      if (tunnel && !reduceMotion) tunnel.start();
       if (els.startBtn) els.startBtn.textContent = 'Probando…';
       if (els.phase) els.phase.textContent = 'Preparando…';
       try {

@@ -23,7 +23,8 @@
 
   function initMap() {
     /* global L, coverageData */
-    const map = L.map('map', { scrollWheelZoom: false }).setView([6.2442, -75.5812], 12.3);
+    // keyboard:false — el mapa es solo visual; la alternativa accesible es el verificador y la lista de barrios.
+    const map = L.map('map', { scrollWheelZoom: false, keyboard: false }).setView([6.2442, -75.5812], 12.3);
 
     // Mosaicos de OpenStreetMap (sin API key). El tono oscuro se logra con un filtro CSS
     // sobre .leaflet-tile-pane (ver css/coverage.css). CARTO dejó de servir sin API key.
@@ -62,6 +63,11 @@
       const bounds = activeLayers.reduce((acc, l) => acc.extend(l.getBounds()), L.latLngBounds(activeLayers[0].getBounds()));
       map.fitBounds(bounds.pad(0.35), { maxZoom: 16 });
     }
+
+    // Fuera del orden de tabulación: el mapa está oculto para lectores de pantalla (aria-hidden)
+    // y su contenido está disponible en texto en la lista de barrios.
+    mapEl.setAttribute('tabindex', '-1');
+    mapEl.querySelectorAll('a, button, [tabindex]').forEach((el) => el.setAttribute('tabindex', '-1'));
   }
 
   let started = false;

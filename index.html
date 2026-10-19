@@ -144,7 +144,8 @@
         { "@type": "Question", "name": "¿Qué equipos necesito?", "acceptedAnswer": { "@type": "Answer", "text": "Ninguno. Te instalamos el equipo de fibra (ONT) con router WiFi, entregado en comodato: es de Bifröst y lo devuelves si terminas el servicio." } },
         { "@type": "Question", "name": "¿Cómo puedo pagar?", "acceptedAnswer": { "@type": "Answer", "text": "Por transferencia bancaria, llave Bre-B, pasarela de pagos ePayco o en efectivo en los puntos físicos habilitados." } },
         { "@type": "Question", "name": "¿Qué pasa si mi barrio aún no tiene cobertura?", "acceptedAnswer": { "@type": "Answer", "text": "Te anotamos en la lista de espera y te avisamos por WhatsApp cuando la red llegue a tu barrio." } },
-        { "@type": "Question", "name": "¿Cómo presento una petición, queja o reclamo (PQR)?", "acceptedAnswer": { "@type": "Answer", "text": "Por el formulario de esta página, por correo a contacto@bifrostinternet.com, por WhatsApp o en nuestra oficina. Te asignamos un Código Único Numérico (CUN) y respondemos en máximo 15 días hábiles." } }
+        { "@type": "Question", "name": "¿Cómo presento una petición, queja o reclamo (PQR)?", "acceptedAnswer": { "@type": "Answer", "text": "Por el formulario de esta página, por correo a contacto@bifrostinternet.com, por WhatsApp o en nuestra oficina. Te asignamos un Código Único Numérico (CUN) y respondemos en máximo 15 días hábiles." } },
+        { "@type": "Question", "name": "¿Atienden a personas con discapacidad?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Puedes hacer todos los trámites —contratar, pedir soporte o presentar una PQR— por WhatsApp o correo, sin necesidad de llamar. Si necesitas tu contrato o tus facturas en otro formato, o algún apoyo adicional, cuéntanos." } }
       ]
     }
   ]
@@ -182,6 +183,7 @@
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
         </div>
       </div>
       <a href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero contratar internet de fibra." data-source="nav" class="nav-cta">Contratar</a>
@@ -193,11 +195,14 @@
   </div>
 </nav>
 
-<main id="contenido">
+<main id="contenido" tabindex="-1">
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <img class="hero-mark" src="assets/svg/isotipo_w_animado.svg" width="128" height="128" alt="">
+  <div class="hero-mark-wrap">
+    <img class="hero-mark" id="heroMark" src="assets/svg/isotipo_w_animado.svg" width="128" height="128" alt="">
+    <button type="button" class="anim-toggle" id="animToggle" aria-pressed="false" aria-label="Pausar animación del logo"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg></button>
+  </div>
 
   <h1>
     <span class="line"><span>Fibra óptica que sube</span></span>
@@ -526,8 +531,37 @@
           <div class="legend-item"><span class="dot planned" aria-hidden="true"></span>Próxima fase (19 barrios)</div>
         </div>
       </div>
-      <div id="map" role="region" aria-label="Mapa de cobertura de Bifröst en Medellín"></div>
+      <div id="map" aria-hidden="true"></div>
     </div>
+      <details class="zone-list">
+        <summary>Ver la lista de barrios en texto</summary>
+        <h4>Cobertura activa</h4>
+        <ul>
+            <li class="active">Los Cerros - El Vergel</li>
+        </ul>
+        <h4>Próxima fase</h4>
+        <ul>
+            <li>Alejandro Echavarría</li>
+            <li>Asomadera No.1</li>
+            <li>Asomadera No.2</li>
+            <li>Asomadera No.3</li>
+            <li>Barrio Caicedo</li>
+            <li>Barrios de Jesús</li>
+            <li>Bombona No.2</li>
+            <li>Buenos Aires</li>
+            <li>Cataluña</li>
+            <li>El Salvador</li>
+            <li>Gerona</li>
+            <li>Juan Pablo II</li>
+            <li>La Milagrosa</li>
+            <li>Loreto</li>
+            <li>Miraflores</li>
+            <li>Ocho de Marzo</li>
+            <li>Santa Elena</li>
+            <li>Seminario No.1</li>
+            <li>Seminario No.2</li>
+        </ul>
+      </details>
   </div>
 </section>
 
@@ -577,7 +611,7 @@
       <h2 id="reviewsTitle">Lo que dicen<br>al otro lado del puente.</h2>
     </div>
     <div class="reviews-summary" id="reviewsSummary"></div>
-    <div class="review-track" id="reviewsTrack"></div>
+    <div class="review-track" id="reviewsTrack" role="region" aria-label="Reseñas de clientes (desplázate horizontalmente)" tabindex="0"></div>
     <p class="reviews-attrib">Reseñas publicadas por clientes en Google.</p>
   </div>
 </section>
@@ -675,6 +709,10 @@
         <summary>¿Cómo presento una petición, queja o reclamo (PQR)?</summary>
         <div class="answer"><p>Por el formulario de esta página, por correo a contacto@bifrostinternet.com, por WhatsApp o en nuestra oficina. Te asignamos un Código Único Numérico (CUN) y respondemos en máximo 15 días hábiles. <a href="atencion-pqr.html">Ver el procedimiento completo</a>.</p></div>
       </details>
+      <details class="faq-item">
+        <summary>¿Atienden a personas con discapacidad?</summary>
+        <div class="answer"><p>Sí. Puedes hacer todos los trámites —contratar, pedir soporte o presentar una PQR— por WhatsApp o correo, sin necesidad de llamar. Si necesitas tu contrato o tus facturas en otro formato, o algún apoyo adicional, cuéntanos. <a href="accesibilidad.html">Conoce nuestro compromiso de accesibilidad</a>.</p></div>
+      </details>
     </div>
   </div>
 </section>
@@ -685,12 +723,13 @@
     <div class="section-head reveal">
       <div class="eyebrow">Contacto</div>
       <h2>Cruza el puente.</h2>
-      <p>La forma más rápida es WhatsApp. Si prefieres, déjanos tus datos y te contactamos.</p>
+      <p>La forma más rápida es WhatsApp. Si prefieres, déjanos tus datos y te contactamos. Atendemos todo por escrito: no necesitas llamar.</p>
     </div>
 
     <div class="contact-grid reveal">
       <div class="contact-form">
-        <form id="contactForm" novalidate>
+        <form id="contactForm" novalidate aria-describedby="formIntro">
+          <p class="form-intro" id="formIntro">Todos los campos son obligatorios, salvo los marcados como opcionales.</p>
           <div class="field-row">
             <div class="field">
               <label for="nombre">Nombre completo</label>
@@ -760,7 +799,7 @@
           </div>
 
           <label class="consent">
-            <input type="checkbox" name="autorizacion_datos" value="si" required>
+            <input type="checkbox" id="autorizacion" name="autorizacion_datos" value="si" required>
             <span>Autorizo a Bifröst Network S.A.S. a tratar mis datos personales para atender esta solicitud, según la <a href="habeas-data.html" target="_blank" rel="noopener">Política de Tratamiento de Datos</a> (Ley 1581 de 2012).</span>
           </label>
 
@@ -836,6 +875,7 @@
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
         </div>
       </div>
     </div>

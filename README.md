@@ -126,19 +126,25 @@ Funciona con **Consent Mode v2**: hasta que el visitante acepta en el banner, GA
 
 Sin endpoint, el formulario abre WhatsApp con la solicitud ya redactada (no se pierde ninguna). Para recibirlas también por correo o en tu CRM, pon en `formEndpoint` la URL de un servicio que acepte POST con JSON, por ejemplo **Formspree** (<https://formspree.io>, crea un formulario y copia la URL `https://formspree.io/f/xxxx`) o un webhook de n8n/Make/Zapier. Las PQR deben recibir su **CUN**: genera el código en tu sistema y envíalo al usuario al responder.
 
-### 4. Reseñas de Google en "Clientes" (`googleMapsApiKey` + `googlePlaceId`)
+### 4. Reseñas de Google en "Clientes" (`reviewsApiUrl`)
 
-La sección **Clientes** está oculta y se muestra sola cuando la ficha de Google tiene reseñas con texto.
+La sección **Clientes** está oculta y se muestra sola cuando hay reseñas con texto. Las reseñas vienen de la **API oficial de Google Business Profile** a través del backend propio de la carpeta `reviews-backend/` (contenedor Docker para el LXC de Proxmox). La guía completa (Google Cloud, OAuth, LXC, nginx y MikroTik) está en `reviews-backend/README.md`.
 
-1. **Google Business Profile** verificado para Bifröst Network (<https://business.google.com>), con la dirección Carrera 15E # 45C-41.
-2. **Place ID**: búscalo en <https://developers.google.com/maps/documentation/places/web-service/place-id> y cópialo en `googlePlaceId` (empieza por `ChIJ…`).
-3. **Google Cloud** (<https://console.cloud.google.com>): crea un proyecto, activa la **facturación** (hay un crédito mensual gratuito que cubre el tráfico de un sitio como este) y habilita **Maps JavaScript API** y **Places API (New)**.
-4. **Credenciales → Crear clave de API**, y restríngela:
-   - *Restricción de aplicación*: **Sitios web (referentes HTTP)** → `https://www.bifrostinternet.com/*`, `https://bifrostinternet.com/*` y, para probar en local, `http://localhost:5500/*`.
-   - *Restricción de API*: solo **Maps JavaScript API** y **Places API (New)**.
-5. Pega la clave en `googleMapsApiKey`. La clave queda visible en el código del sitio (así funciona Maps en el navegador); por eso las restricciones del paso 4 son obligatorias.
+Cuando el backend esté publicado, pon en `reviewsApiUrl` la URL `https://reviews.bifrostinternet.com/reviews`.
 
-Google entrega como máximo las 5 reseñas más relevantes; se muestran tal cual, con autor y enlace a la ficha, como piden sus políticas.
+## Accesibilidad (WCAG 2.2 AA)
+
+El sitio sigue las WCAG 2.2 nivel AA. La declaración pública está en `accesibilidad.html`. Al agregar contenido, mantén estas reglas:
+
+- **Imágenes:** `alt` descriptivo; `alt=""` si son decorativas.
+- **Color:** contraste mínimo de 4.5:1 en texto normal y 3:1 en texto grande. Sobre fondo oscuro usa `--blue-on-dark` y `--grad-text`, nunca `--blue`.
+- **Formularios:** cada campo con `<label>`; los errores se muestran con `js/contact-form.js` (mensajes en `MESSAGES`).
+- **Enlaces externos:** con `target="_blank"` se anuncian solos (`markNewTab` en `js/main.js`).
+- **Animaciones:** deben respetar `prefers-reduced-motion`, y si duran más de 5 segundos necesitan un botón de pausa.
+- **Barrios:** al activar uno nuevo, actualiza también la lista en texto de la sección Cobertura en `index.html`.
+- **Documentos legales:** mantén al inicio el bloque "En resumen" en lenguaje claro.
+
+Para revisar antes de desplegar: navega solo con teclado (Tab, Shift+Tab, Enter, Escape), prueba con VoiceOver (Cmd+F5 en Mac) y pasa Lighthouse › Accesibilidad en Chrome.
 
 ## Medidor de velocidad (sección "Velocidad")
 

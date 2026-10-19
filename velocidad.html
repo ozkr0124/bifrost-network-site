@@ -67,6 +67,7 @@
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
         </div>
       </div>
       <a href="https://wa.me/573018265125" data-wa="Hola Bifröst, quiero contratar internet de fibra." data-source="nav" class="nav-cta">Contratar</a>
@@ -79,14 +80,15 @@
 </nav>
 
 
-<main id="contenido">
+<main id="contenido" tabindex="-1">
 <section class="speedtest section-pad" id="velocidad">
   <div class="wrap">
     <div class="section-head">
       <div class="eyebrow">Velocidad</div>
       <h1 style="font-size:clamp(30px,4.2vw,50px); font-weight:800; letter-spacing:-0.025em; line-height:1.08;">Mide tu conexión<br>al instante.</h1>
       <p>Corre directo desde tu navegador, sin instalar nada. Para un resultado fiel a tu plan, haz la prueba con el computador conectado por cable al equipo de Bifröst.</p>
-      <div class="engine-toggle">
+      <p>La animación es solo decorativa: las fases y los resultados se muestran en texto y se anuncian a los lectores de pantalla. La prueba dura alrededor de 30 segundos.</p>
+      <div class="engine-toggle" role="group" aria-label="Motor de medición">
         <button type="button" data-engine="librespeed">LibreSpeed</button>
         <button type="button" data-engine="ookla">Ookla</button>
       </div>
@@ -99,8 +101,8 @@
                Reemplaza el velocímetro circular clásico por un túnel de anillos que viajan
                hacia el centro (descarga) o hacia afuera (subida). -->
           <div class="tunnel-wrap">
-            <canvas class="tunnel-canvas" id="tunnelCanvas"></canvas>
-            <div class="tunnel-center">
+            <canvas class="tunnel-canvas" id="tunnelCanvas" aria-hidden="true"></canvas>
+            <div class="tunnel-center" aria-hidden="true">
               <div class="tunnel-value" id="gaugeValue">0</div>
               <div class="tunnel-unit" id="gaugeUnit"></div>
             </div>
@@ -108,10 +110,11 @@
           </div>
 
           <div class="gauge-phase" id="gaugePhase">Listo para iniciar</div>
+          <div class="visually-hidden" id="stAnnounce" role="status" aria-live="polite"></div>
 
           <button type="button" class="st-start-btn" id="startTestBtn">Iniciar prueba de velocidad</button>
 
-          <div class="st-stats">
+          <div class="st-stats" aria-label="Resultados de la prueba" role="group">
             <div class="st-stat">
               <div class="lbl">Ping</div>
               <div class="val" id="statPing">--<span>ms</span></div>
@@ -137,7 +140,7 @@
       <div class="st-panel" id="panel-ookla">
         <div class="st-card">
           <div class="ookla-badge"><span class="dot"></span>Ookla Speedtest</div>
-          <h3>Muy pronto, medición Ookla en tu propio servidor</h3>
+          <h2 class="st-card-title">Muy pronto, medición Ookla en tu propio servidor</h2>
           <p>Estamos desplegando nuestro propio OoklaServer para ofrecerte mediciones con la red de Ookla directo aquí, con el diseño de Bifröst. Mientras tanto, puedes usar el Speedtest oficial en una pestaña nueva.</p>
           <a href="https://www.speedtest.net/" target="_blank" rel="noopener" class="ookla-open-btn">Abrir Speedtest.net ↗</a>
         </div>
@@ -183,6 +186,7 @@
           <a href="neutralidad-red.html">Neutralidad en la Red</a>
           <a href="atencion-pqr.html">Atención PQR</a>
           <a href="prevencion-pornografia-infantil.html">Ley 679 de 2001</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
         </div>
       </div>
     </div>

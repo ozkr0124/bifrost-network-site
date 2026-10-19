@@ -13,6 +13,18 @@
   }
   window.bifrostWaUrl = waUrl;
 
+  // ---------- "Saltar al contenido": lleva el foco al contenido principal ----------
+  // Así el siguiente Tab empieza después del menú y el lector de pantalla anuncia el contenido.
+  const skipLink = document.querySelector('.skip-link');
+  const mainEl = document.getElementById('contenido');
+  if (skipLink && mainEl) {
+    skipLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      mainEl.focus({ preventScroll: true });
+      mainEl.scrollIntoView({ block: 'start' });
+    });
+  }
+
   // ---------- Nav sólida al hacer scroll + barra de progreso ----------
   const nav = document.getElementById('nav');
   const beam = document.getElementById('beamProgress');
@@ -31,16 +43,34 @@
   // ---------- Menú móvil ----------
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
-  function setMenu(open) {
+  const isMobileMenu = () => burger && getComputedStyle(burger).display !== 'none';
+  function setMenu(open, returnFocus) {
     if (!burger || !navLinks) return;
     burger.classList.toggle('open', open);
     navLinks.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', String(open));
     burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    if (open && isMobileMenu()) {
+      const first = navLinks.querySelector('a, button');
+      if (first) setTimeout(() => first.focus(), 60);
+    } else if (!open && returnFocus) {
+      burger.focus();
+    }
   }
   if (burger && navLinks) {
-    burger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+    burger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open'), true));
     navLinks.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    // Con el menú móvil abierto, Tab recorre solo el menú y el botón de cerrar
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || !navLinks.classList.contains('open') || !isMobileMenu()) return;
+      // Orden del DOM: enlaces del menú y, al final, el botón de cerrar
+      const items = Array.from(navLinks.querySelectorAll('a, button'))
+        .filter((el) => el.offsetParent !== null && !el.closest('.nav-dropdown-menu:not(.open)')).concat(burger);
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 
   // ---------- Desplegable Normatividad ----------
@@ -61,7 +91,7 @@
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     if (normMenu && normMenu.classList.contains('open')) { setNorm(false); normToggle.focus(); }
-    if (navLinks && navLinks.classList.contains('open')) { setMenu(false); burger.focus(); }
+    if (navLinks && navLinks.classList.contains('open')) setMenu(false, true);
   });
 
   // ---------- Reveal on scroll ----------
@@ -84,6 +114,42 @@
     a.target = '_blank';
     a.rel = 'noopener';
   });
+
+  // Los enlaces que abren otra pestaña lo anuncian a los lectores de pantalla
+  function markNewTab(root) {
+    (root || document).querySelectorAll('a[target="_blank"]').forEach((a) => {
+      if (a.querySelector('.new-tab-hint')) return;
+      const hint = document.createElement('span');
+      hint.className = 'visually-hidden new-tab-hint';
+      hint.textContent = ' (se abre en otra pestaña)';
+      a.appendChild(hint);
+      if (a.hasAttribute('aria-label')) a.setAttribute('aria-label', a.getAttribute('aria-label').replace(/ \(se abre en otra pestaña\)$/, '') + ' (se abre en otra pestaña)');
+    });
+  }
+  window.bifrostMarkNewTab = markNewTab;
+  markNewTab(document);
+
+  // ---------- Pausar la animación continua del isotipo ----------
+  const animToggle = document.getElementById('animToggle');
+  const heroMark = document.getElementById('heroMark');
+  if (animToggle && heroMark) {
+    const PAUSE = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>';
+    const PLAY = '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11a.5.5 0 0 0 .77.42l8.5-5.5a.5.5 0 0 0 0-.84l-8.5-5.5A.5.5 0 0 0 4 2.5z"/></svg>';
+    let paused = false;
+    try { paused = localStorage.getItem('bifrost-anim-paused') === '1'; } catch (e) {}
+    const apply = () => {
+      heroMark.src = paused ? 'assets/svg/isotipo_w.svg' : 'assets/svg/isotipo_w_animado.svg';
+      animToggle.setAttribute('aria-pressed', String(paused));
+      animToggle.setAttribute('aria-label', paused ? 'Reanudar animación del logo' : 'Pausar animación del logo');
+      animToggle.innerHTML = paused ? PLAY : PAUSE;
+    };
+    if (paused) apply();
+    animToggle.addEventListener('click', () => {
+      paused = !paused;
+      try { localStorage.setItem('bifrost-anim-paused', paused ? '1' : '0'); } catch (e) {}
+      apply();
+    });
+  }
 
   // Analítica de clics de contacto (WhatsApp, teléfono, correo)
   document.addEventListener('click', (e) => {
@@ -197,6 +263,7 @@
       }
       box.append(p, actions);
       out.replaceChildren(box);
+      markNewTab(out);
       track('coverage_check', { barrio: zone ? zone.name : query.slice(0, 60), result: result });
     });
   });
